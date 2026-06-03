@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiến CEO - Hệ Thống Đào Tạo & Quản Lý Chuyên Nghiệp</title>
+
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Ocean Effects -->
+    <div class="ocean-bg-effects">
+        <div class="ocean-light-reflection"></div>
+        <div class="bubble-container" id="bubble-container"></div>
+
+        <!-- Animated Wave SVG -->
+        <div class="ocean-waves">
+            <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
+                shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
+                </defs>
+                <g class="parallax-waves">
+                    <use href="#gentle-wave" x="48" y="0" />
+                    <use href="#gentle-wave" x="48" y="3" />
+                    <use href="#gentle-wave" x="48" y="5" />
+                    <use href="#gentle-wave" x="48" y="7" />
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div>
+                    <h1 class="logo-text">Tiến Superman</h1>
+                    <span class="logo-subtitle">Học viện CEO Tiến Superman</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-target="dashboard-section">
+                    <a href="#" class="menu-link">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="recipes-section">
+                    <a href="#" class="menu-link">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Công thức pha chế</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="cooking-section">
+                    <a href="#" class="menu-link">
+                        <i class="fa-solid fa-fire-burner"></i>
+                        <span>Nấu trân châu</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="shelf-life-section">
+                    <a href="#" class="menu-link">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Hạn sử dụng Topping</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="portions-section">
+                    <a href="#" class="menu-link">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <span>Định lượng Topping</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="learning-section">
+                    <a href="#" class="menu-link">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Hệ thống học tập</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <p>© TIẾN SUPERMAN</p>
+                <p style="font-size: 10px; opacity: 0.7;">Học chậm - Pha chuẩn - Chuyên nghiệp - Sai thì bỏ</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="content-wrapper">
+
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="mobile-menu-toggle" id="sidebar-toggle" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <!-- Quick Search Bar (Global behavior - triggers recipe search and redirects) -->
+                <div class="header-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="global-search" placeholder="Tìm kiếm công thức trà sữa nhanh...">
+                </div>
+
+                <div class="header-profile">
+                    <div class="profile-info">
+                        <span class="profile-name">Pha Chế Viên</span>
+                        <span class="profile-role">Ca Sáng</span>
+                    </div>
+                    <div class="avatar-wrapper">
+                        <span>PC</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- SECTION 1: TRANG CHỦ -->
+            <section id="dashboard-section" class="app-section active">
+                <div class="glass-card"
+                    style="background: linear-gradient(135deg, rgba(3, 4, 94, 0.05), rgba(0, 119, 182, 0.05)); padding: 28px;">
+                    <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 6px;">Chào mừng đến với Hệ thống của
+                        CEO Cao Minh Tiến đẳng cấp!</h2>
+                    <p style="font-size: 0.95rem; opacity: 0.85; max-width: 700px;">
+                        Hệ thống tra cứu nhanh định lượng công thức, topping tại quầy và thi trắc
+                        nghiệm học thuộc công thức.
+                    </p>
+                </div>
+
+
+                <!-- Statistical Grid -->
+                <div class="grid-3">
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-total-recipes">0</div>
+                            <div class="stat-label">Tổng Công thức</div>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon" style="color: var(--safe-green); background: rgba(46, 196, 182, 0.15);">
+                            <i class="fa-solid fa-cookie-bite"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-total-toppings">0</div>
+                            <div class="stat-label">Tổng Topping</div>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon"
+                            style="color: var(--warning-yellow); background: rgba(255, 159, 28, 0.15);"><i
+                                class="fa-solid fa-leaf"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-total-ingredients">15</div>
+                            <div class="stat-label">Nguyên liệu chính</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick navigation or overview cards -->
+                <div class="grid-2">
+                    <!-- Quick Study Progress -->
+                    <div class="glass-card">
+                        <h3 class="section-subtitle" style="margin-bottom: 16px;">
+                            <i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i>
+                            Tiến độ học thuộc công thức
+                        </h3>
+                        <div style="display: flex; align-items: center; gap: 24px; margin-top: 10px;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div
+                                    style="position: relative; width: 90px; height: 115px; flex-shrink: 0; display: flex; justify-content: center;">
+                                    <div class="liquid-cup-straw"></div>
+                                    <div class="liquid-cup-container">
+                                        <div class="liquid-tea" id="progress-liquid-tea" style="height: 0%;"></div>
+                                        <div class="liquid-pearls-layer">
+                                            <span class="cup-pearl"></span>
+                                            <span class="cup-pearl"></span>
+                                            <span class="cup-pearl"></span>
+                                            <span class="cup-pearl"></span>
+                                            <span class="cup-pearl"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="font-weight: 800; font-size: 1.1rem; color: var(--primary-light); text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);"
+                                    id="progress-percentage-text">0%</div>
+                            </div>
+                            <div>
+                                <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 4px;"
+                                    id="progress-status-desc">Bắt đầu học ngay hôm nay!</p>
+                                <p style="font-size: 0.8rem; color: var(--primary-light);" id="progress-detail-text">Đã
+                                    thuộc 0 / 0 công thức</p>
+                                <button class="btn btn-primary" onclick="switchSection('learning-section')"
+                                    style="padding: 6px 14px; font-size: 0.8rem; margin-top: 10px; border-radius: 8px;">
+                                    Vào Học Ngay
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+            <!-- SECTION 2: DANH MỤC CÔNG THỨC PHA CHẾ -->
+            <section id="recipes-section" class="app-section">
+                <div class="section-header">
+                    <h2 class="section-title">Danh mục Công thức pha chế</h2>
+
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="recipe-search" placeholder="Tìm tên hoặc nguyên liệu...">
+                    </div>
+                </div>
+
+                <!-- Filter tabs by category -->
+                <div class="filter-tabs" id="recipe-category-tabs">
+                    <button class="filter-tab active" data-category="all">Tất cả món</button>
+                    <button class="filter-tab" data-category="pure-tea">A. Thuần trà</button>
+                    <button class="filter-tab" data-category="special">B. Món đặc biệt</button>
+                    <button class="filter-tab" data-category="hot-tea">C. Món hot</button>
+                    <button class="filter-tab" data-category="milk-tea">D. Trà sữa</button>
+                    <button class="filter-tab" data-category="latte">E. Trà latte</button>
+                    <button class="filter-tab" data-category="fruit-tea">F. Trà trái cây</button>
+                </div>
+
+                <!-- Recipes Grid Display -->
+                <div class="recipes-grid" id="recipes-container">
+                    <!-- Generated by JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 3: NẤU TRÂN CHÂU -->
+            <section id="cooking-section" class="app-section">
+                <div class="section-header">
+                    <h2 class="section-title">Quy trình Nấu trân châu & Topping</h2>
+                </div>
+
+                <!-- Topping selector tabs -->
+                <div class="cooking-guide-select" id="cooking-guide-tabs">
+                    <!-- Tabs populated by JS -->
+                </div>
+
+                <!-- Cooking details layout -->
+                <div class="cooking-layout" id="cooking-guide-detail">
+                    <!-- Left side: Ingredients & Prep -->
+                    <div class="cooking-ingredient-box glass-card">
+                        <!-- Dynamically populated -->
+                    </div>
+
+                    <!-- Right side: Steps with interactive timers -->
+                    <div class="cooking-steps-timeline" id="cooking-steps-container">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: HẠN SỬ DỤNG TOPPING -->
+            <section id="shelf-life-section" class="app-section">
+                <div class="section-header">
+                    <h2 class="section-title">Hạn sử dụng Topping tiêu chuẩn</h2>
+                </div>
+
+                <!-- Master reference table for shelf lives -->
+                <div class="glass-card">
+                    <h3 class="section-subtitle" style="margin-bottom: 8px;">
+                        <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i>
+                        Cẩm nang Hạn sử dụng & Điều kiện bảo quản tiêu chuẩn
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--primary-light); margin-bottom: 16px; font-weight: 600;">
+                        * Quy chuẩn nhiệt độ bảo quản: Tủ mát: 0°C ~ 6°C | Tủ đông: -5°C trở xuống | Nhiệt độ thường: 22°C
+                    </p>
+                    <div class="shelf-table-wrapper">
+                        <table class="shelf-table" id="master-shelf-guidelines-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên Topping</th>
+                                    <th>Hạn dùng (Chưa khui)</th>
+                                    <th>Bảo quản (Chưa khui)</th>
+                                    <th>Hạn dùng (Đã khui)</th>
+                                    <th>Bảo quản (Đã khui)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="master-shelf-guidelines-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: ĐỊNH LƯỢNG TOPPING -->
+            <section id="portions-section" class="app-section">
+                <div class="section-header">
+                    <h2 class="section-title">Định lượng Topping tiêu chuẩn</h2>
+
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="portions-search" placeholder="Tìm kiếm topping đong đếm...">
+                    </div>
+                </div>
+
+                <!-- Grid layout for portions cards -->
+                <div class="topping-grid" id="topping-portions-container">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Summary table for quick reference in desk -->
+                <div class="glass-card" style="padding: 0; overflow: hidden; margin-top: 24px;">
+                    <div
+                        style="padding: 16px 20px; border-bottom: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.3);">
+                        <h3 class="section-subtitle" style="margin: 0;">Bảng tra cứu nhanh định lượng</h3>
+                    </div>
+                    <div class="shelf-table-wrapper">
+                        <table class="shelf-table" id="portions-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên Topping</th>
+                                    <th>Số muỗng sử dụng</th>
+                                    <th>Định lượng (Gram / ml)</th>
+                                    <th>Ghi chú pha chế</th>
+                                </tr>
+                            </thead>
+                            <tbody id="portions-table-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: HỆ THỐNG HỌC TẬP -->
+            <section id="learning-section" class="app-section">
+                <div class="section-header">
+                    <h2 class="section-title">Hệ thống học tập và Thi thử</h2>
+                </div>
+
+                <!-- Mode Selectors -->
+                <div class="training-modes" id="training-mode-selectors">
+                    <div class="glass-card mode-card" data-mode="flashcard">
+                        <div class="mode-icon"><i class="fa-solid fa-clone"></i></div>
+                        <h3 class="mode-title">Flashcard Ghi nhớ</h3>
+                        <p class="mode-desc">Lật thẻ học nhanh nguyên liệu và định lượng công thức</p>
+                    </div>
+                    <div class="glass-card mode-card" data-mode="quiz">
+                        <div class="mode-icon" style="color: var(--safe-green); background: rgba(46, 196, 182, 0.15);">
+                            <i class="fa-solid fa-square-check"></i>
+                        </div>
+                        <h3 class="mode-title">Trắc nghiệm nhanh</h3>
+                        <p class="mode-desc">Thi thử trắc nghiệm định lượng ngẫu nhiên để thuộc bài</p>
+                    </div>
+                    <div class="glass-card mode-card" data-mode="progress">
+                        <div class="mode-icon"
+                            style="color: var(--warning-yellow); background: rgba(255, 159, 28, 0.15);"><i
+                                class="fa-solid fa-award"></i></div>
+                        <h3 class="mode-title">Tiến trình học tập</h3>
+                        <p class="mode-desc">Theo dõi tỉ lệ thuộc bài và điểm số thi thử của bạn</p>
+                    </div>
+                </div>
+
+                <!-- Back to Mode Selector Button (Visible during learning modes) -->
+                <button class="btn btn-secondary" id="btn-back-to-modes" style="display: none; margin-bottom: 20px;">
+                    <i class="fa-solid fa-arrow-left"></i> Quay lại chọn chế độ học
+                </button>
+
+                <!-- SUB-PANEL A: FLASHCARDS -->
+                <div id="learning-flashcard-panel" style="display: none;">
+                    <div style="text-align: center; margin-bottom: 12px;">
+                        <p style="font-size: 0.85rem; color: var(--primary-light); font-weight: 600;"
+                            id="flashcard-counter">Thẻ 1 / 10</p>
+                        <h3 style="margin-top: 4px; font-weight: 700;">Nhấp chuột vào thẻ để Lật xem công thức</h3>
+                    </div>
+
+                    <div class="flashcard-wrapper">
+                        <div class="flashcard" id="flashcard-element">
+                            <!-- Front of Flashcard -->
+                            <div class="flashcard-face flashcard-front">
+                                <div class="flashcard-name" id="flashcard-front-name">Tên trà sữa</div>
+                                <div class="flashcard-hint"><i class="fa-solid fa-rotate"></i> Nhấp để lật xem công thức
+                                </div>
+                            </div>
+
+                            <!-- Back of Flashcard -->
+                            <div class="flashcard-face flashcard-back">
+                                <div class="flashcard-back-title" id="flashcard-back-name">Tên trà sữa</div>
+                                <div class="flashcard-content-scroll" id="flashcard-back-content">
+                                    <!-- Formula, size, ingredients details -->
+                                </div>
+                                <div class="flashcard-hint" style="margin-top: 12px;"><i class="fa-solid fa-rotate"></i>
+                                    Nhấp để lật lại</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button class="btn btn-secondary" id="btn-flashcard-prev"><i
+                                class="fa-solid fa-chevron-left"></i> Trước đó</button>
+                        <button class="btn btn-success" id="btn-flashcard-mark"><i class="fa-solid fa-check"></i> Đã
+                            thuộc món này</button>
+                        <button class="btn btn-secondary" id="btn-flashcard-next">Tiếp theo <i
+                                class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- SUB-PANEL B: QUIZ -->
+                <div id="learning-quiz-panel" style="display: none;">
+                    <!-- Setup state -->
+                    <div id="quiz-setup" class="glass-card"
+                        style="max-width: 500px; margin: 0 auto; text-align: center;">
+                        <h3 style="font-weight: 800; font-size: 1.3rem; margin-bottom: 8px;">Bài kiểm tra pha chế nhanh
+                        </h3>
+                        <p style="font-size: 0.9rem; color: var(--primary-light); margin-bottom: 24px;">Bài thi gồm 10
+                            câu trắc nghiệm được tạo ngẫu nhiên dựa trên các công thức pha chế của quán.</p>
+
+                        <button class="btn btn-primary" id="btn-start-quiz"
+                            style="margin: 0 auto; padding: 12px 24px; font-size: 1rem; border-radius: 12px;">
+                            Bắt đầu kiểm tra <i class="fa-solid fa-circle-play" style="margin-left: 6px;"></i>
+                        </button>
+                    </div>
+
+                    <!-- Playing state -->
+                    <div id="quiz-active" class="glass-card quiz-container" style="display: none;">
+                        <div class="quiz-header">
+                            <span id="quiz-current-question-num">Câu hỏi 1 / 10</span>
+                            <span id="quiz-timer">Thời gian: 0s</span>
+                        </div>
+
+                        <div class="quiz-progress-bar">
+                            <div class="quiz-progress-fill" id="quiz-progress-fill-element"></div>
+                        </div>
+
+                        <div class="quiz-question" id="quiz-question-text">
+                            Định lượng trà hoa nhài cho ly lục trà lài 700ml là bao nhiêu?
+                        </div>
+
+                        <div class="quiz-choices" id="quiz-choices-container">
+                            <!-- Choices populated dynamically -->
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn-primary" id="btn-quiz-next" style="display: none;">
+                                Tiếp theo <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results state -->
+                    <div id="quiz-result" class="glass-card quiz-container" style="display: none; text-align: center;">
+                        <h3 style="font-weight: 800; font-size: 1.5rem; margin-bottom: 20px;">Hoàn thành bài kiểm tra!
+                        </h3>
+
+                        <div class="quiz-score-circle">
+                            <span id="quiz-result-score">8/10</span>
+                            <span class="quiz-score-lbl">ĐIỂM SỐ</span>
+                        </div>
+
+                        <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 4px;" id="quiz-result-comment">Khá
+                            lắm! Bạn cần học thêm một vài công thức nhé.</p>
+                        <p style="font-size: 0.85rem; color: var(--primary-light); margin-bottom: 24px;"
+                            id="quiz-result-time">Thời gian làm bài: 45 giây</p>
+
+                        <div style="display: flex; justify-content: center; gap: 12px;">
+                            <button class="btn btn-primary" id="btn-restart-quiz">
+                                <i class="fa-solid fa-arrow-rotate-left"></i> Làm bài khác
+                            </button>
+                            <button class="btn btn-secondary" onclick="switchSection('recipes-section')">
+                                Xem lại Công thức
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-PANEL C: PROGRESS TRACKING -->
+                <div id="learning-progress-panel" style="display: none;">
+                    <div class="grid-2">
+                        <!-- Learning Stats Card -->
+                        <div class="glass-card">
+                            <h3 class="section-subtitle"><i class="fa-solid fa-graduation-cap"
+                                    style="color: var(--primary);"></i> Thống kê học tập</h3>
+                            <ul
+                                style="list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 12px;">
+                                <li class="progress-list-item">
+                                    <span>Tổng số công thức trong quán:</span>
+                                    <strong id="prog-total-recipes">0</strong>
+                                </li>
+                                <li class="progress-list-item">
+                                    <span>Công thức đã thuộc lòng:</span>
+                                    <strong style="color: var(--safe-green);" id="prog-learned-recipes">0</strong>
+                                </li>
+                                <li class="progress-list-item">
+                                    <span>Công thức chưa học:</span>
+                                    <strong style="color: var(--danger-red);" id="prog-unlearned-recipes">0</strong>
+                                </li>
+                                <li class="progress-list-item">
+                                    <span>Tỉ lệ hoàn thành:</span>
+                                    <strong style="color: var(--primary);" id="prog-completion-rate">0%</strong>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Quiz History Card -->
+                        <div class="glass-card">
+                            <h3 class="section-subtitle"><i class="fa-solid fa-chart-line"
+                                    style="color: var(--warning-yellow);"></i> Lịch sử kiểm tra trắc nghiệm</h3>
+                            <div style="max-height: 180px; overflow-y: auto; margin-top: 14px;" id="quiz-history-list">
+                                <!-- Lists of previous quiz scores -->
+                                <p
+                                    style="font-size: 0.85rem; color: var(--primary-light); text-align: center; padding: 20px 0;">
+                                    Bạn chưa làm bài kiểm tra nào.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed list of recipes showing learned status -->
+                    <div class="glass-card">
+                        <h3 class="section-subtitle" style="margin-bottom: 16px;">Chi tiết trạng thái học của từng công
+                            thức</h3>
+                        <div class="shelf-table-wrapper">
+                            <table class="shelf-table" id="learning-detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên Món</th>
+                                        <th>Nhóm</th>
+                                        <th>Trạng thái học thuộc</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="learning-detail-table-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- RECIPE DETAIL MODAL -->
+    <div class="modal-overlay" id="recipe-detail-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-recipe-name">Tên Công thức pha chế</h3>
+                <button class="modal-close" id="btn-close-recipe-modal" aria-label="Close Modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Recipe Overview -->
+                <div class="recipe-detail-header">
+                    <img src="" alt="Recipe Image" class="recipe-detail-img" id="modal-recipe-img">
+                    <div class="recipe-detail-desc">
+                        <div style="font-size: 0.85rem; color: var(--primary-light); font-weight: 700; text-transform: uppercase;"
+                            id="modal-recipe-category">Nhóm: Trà Sữa</div>
+                        <div style="font-size: 0.95rem; font-weight: 600; margin-top: 4px;">Dung tích mặc định: <span
+                                id="modal-recipe-default-size" style="color: var(--primary);">700ml</span></div>
+
+                        <!-- Size Selector Buttons -->
+                        <div class="size-selector" id="modal-size-selector">
+                            <button class="size-btn active" data-size="700ml">Ly Vừa (700cc)</button>
+                            <button class="size-btn" data-size="1000ml">Ly Lớn (1000cc)</button>
+                        </div>
+
+                        <!-- Tea Customization Options (Sugar & Ice) - Only shown for pure teas -->
+                        <div id="modal-tea-customization"
+                            style="display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--glass-border);">
+                            <div style="margin-bottom: 12px;">
+                                <label
+                                    style="font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; display: block; color: var(--primary-light); letter-spacing: 0.5px;">CHỌN
+                                    ĐỘ ĐƯỜNG:</label>
+                                <div class="size-selector" id="modal-sugar-selector">
+                                    <button class="size-btn active" data-sugar="100%">100%</button>
+                                    <button class="size-btn" data-sugar="70%">70%</button>
+                                    <button class="size-btn" data-sugar="50%">50%</button>
+                                    <button class="size-btn" data-sugar="30%">30%</button>
+                                    <button class="size-btn" data-sugar="0%">0%</button>
+                                </div>
+                                <div id="modal-sugar-fixed-note"
+                                    style="display: none; font-size: 0.85rem; color: var(--danger-red); font-weight: 700; margin-top: 6px;">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> Cố định độ đường, không thể giảm
+                                    đường!
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    style="font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; display: block; color: var(--primary-light); letter-spacing: 0.5px;">CHỌN
+                                    MỨC ĐÁ:</label>
+                                <div class="size-selector" id="modal-ice-selector">
+                                    <button class="size-btn active" data-ice="normal">Đá thường</button>
+                                    <button class="size-btn" data-ice="more">Đá nhiều</button>
+                                    <button class="size-btn" data-ice="less">Ít đá</button>
+                                    <button class="size-btn" data-ice="none">Không đá</button>
+                                </div>
+                                <div id="modal-ice-note"
+                                    style="display: none; font-size: 0.85rem; color: var(--danger-red); font-weight: 700; margin-top: 6px;">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> Không thể cho nhiều đá vì bỏ đá sau!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe specs (Tea, Ice, Sugar, Water) -->
+                <div class="recipe-specs">
+                    <div class="spec-item">
+                        <div class="spec-val" id="spec-val-tea">150ml</div>
+                        <div class="spec-lbl" id="spec-lbl-tea">Cốt Trà</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-val" id="spec-val-ice">Đầy ly</div>
+                        <div class="spec-lbl">Định lượng Đá</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-val" id="spec-val-sugar">30ml</div>
+                        <div class="spec-lbl">Nước Đường</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-val" id="spec-val-milk">--</div>
+                        <div class="spec-lbl" id="spec-lbl-milk">Sữa tươi</div>
+                    </div>
+                </div>
+
+                <!-- Ingredients Table -->
+                <h4 class="section-subtitle"><i class="fa-solid fa-flask" style="color: var(--primary);"></i> Định lượng
+                    nguyên liệu chi tiết</h4>
+                <div class="ingredients-list" id="modal-ingredients-body">
+                    <!-- Ingredients rows -->
+                </div>
+
+                <!-- Step-by-step checklist -->
+                <h4 class="section-subtitle"><i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Quy
+                    trình các bước pha chế (Tích chọn để học thuộc)</h4>
+                <div class="steps-list" id="modal-steps-body">
+                    <!-- Checklist steps -->
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-modal-prev">
+                    <i class="fa-solid fa-circle-chevron-left"></i> Món trước
+                </button>
+                <button class="btn btn-success" id="btn-modal-toggle-learned">
+                    <i class="fa-solid fa-check"></i> Đánh dấu: Đã thuộc
+                </button>
+                <button class="btn btn-secondary" id="btn-modal-next">
+                    Món sau <i class="fa-solid fa-circle-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating / Active Timers Container (Bottom-Right) -->
+    <div class="active-timers-drawer" id="active-timers-container">
+        <!-- Active timers dynamically appended here -->
+    </div>
+
+    <!-- Custom Scripts -->
+    <script src="app.js"></script>
+</body>
+
+</html>
