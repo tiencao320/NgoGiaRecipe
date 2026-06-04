@@ -1185,6 +1185,38 @@ const DATA = {
       ]
     },
     {
+      id: "rec-tra-sua-uyen-uong",
+      name: "Trà sữa Uyên Ương",
+      category: "milk-tea",
+      categoryName: "D. Trà sữa",
+      defaultSize: "700ml",
+      isCustomPureStyle: true,
+      isFixedSugar: false,
+      minSugar: "70%",
+      isUyenUong: true,
+      isMilkTea: true,
+      sizes: {
+        "700ml": {
+          tea: "300ml hỗn hợp",
+          ice: "Đá đầy ly",
+          sugar: "100%",
+          milk: "40ml kem béo",
+          ingredients: [
+            { name: "Kem béo", quantity: "40ml" },
+            { name: "Trà Bí Đao", quantity: "200ml" },
+            { name: "Cốt Hồng trà có đường", quantity: "100ml" }
+          ]
+        }
+      },
+      steps: [
+        "Bước 1: Cho 40ml kem béo vào ly PP.",
+        "Bước 2: Rót 200ml trà Bí Đao vào ly PP.",
+        "Bước 3: Rót 100ml cốt Hồng trà có đường vào ly PP.",
+        "Bước 4: Cho đá đầy ly PP.",
+        "Bước 5: Hoàn thành và dập nắp ly."
+      ]
+    },
+    {
       id: "rec-sua-tuoi-tcd-den",
       name: "Sữa tươi Trân Châu Đường Đen",
       category: "latte",
@@ -1522,7 +1554,7 @@ const DATA = {
     { name: "Kem", unopenedLife: "6 tháng", unopenedStore: "Tủ đông", openedLife: 720, openedStore: "Tủ đông" },
     { name: "Hạt sen", unopenedLife: "2 năm", unopenedStore: "Nhiệt độ thường", openedLife: 72, openedStore: "Tủ mát (Dùng tốt trong 3 đến 5 ngày)" },
     { name: "Củ năng", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Tủ mát" },
-    { name: "Pudding", unopenedLife: "10 ngày", unopenedStore: "Tủ mát", openedLife: 120, openedStore: "Tủ mát" },
+    { name: "Pudding sương sáo", unopenedLife: "10 ngày", unopenedStore: "Tủ mát", openedLife: "Dùng ngay", openedStore: "-" },
     { name: "Cốt trái cây", unopenedLife: "7 ngày hoặc 24 tháng (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 72, openedStore: "Tủ mát" },
     { name: "Mứt nho", unopenedLife: "2 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Tủ mát" },
     { name: "Sốt nho", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 360, openedStore: "Tủ mát" },
@@ -1558,7 +1590,7 @@ const DATA = {
     { name: "Kem", scoops: "1 viên", grams: "60g", notes: "" },
     { name: "Hạt sen", scoops: "1 vá", grams: "50g", notes: "" },
     { name: "Củ năng", scoops: "1 vá", grams: "40g", notes: "" },
-    { name: "Pudding", scoops: "1 cái", grams: "100g", notes: "" },
+    { name: "Pudding sương sáo", scoops: "1 cái", grams: "100g", notes: "" },
     { name: "Cốt trái cây", scoops: "-", grams: "-", notes: "" },
     { name: "Mứt nho", scoops: "-", grams: "-", notes: "" },
     { name: "Sốt nho", scoops: "-", grams: "-", notes: "" },
@@ -1829,6 +1861,7 @@ function setupNavigation() {
   const menuItems = document.querySelectorAll(".sidebar-menu .menu-item");
   const sidebar = document.getElementById("app-sidebar");
   const sidebarToggle = document.getElementById("sidebar-toggle");
+  const overlay = document.getElementById("sidebar-overlay");
 
   menuItems.forEach(item => {
     item.addEventListener("click", (e) => {
@@ -1839,6 +1872,7 @@ function setupNavigation() {
       // Close sidebar on mobile after clicking
       if (window.innerWidth <= 768) {
         sidebar.classList.remove("open");
+        if (overlay) overlay.classList.remove("active");
       }
     });
   });
@@ -1846,7 +1880,22 @@ function setupNavigation() {
   // Mobile drawer toggle
   if (sidebarToggle && sidebar) {
     sidebarToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
+      const isOpen = sidebar.classList.toggle("open");
+      if (overlay) {
+        if (isOpen) {
+          overlay.classList.add("active");
+        } else {
+          overlay.classList.remove("active");
+        }
+      }
+    });
+  }
+
+  // Click overlay to close drawer
+  if (overlay && sidebar) {
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("active");
     });
   }
 }
@@ -3276,6 +3325,68 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     };
   }
 
+  if (recipe.isUyenUong) {
+    let iceSpec = "";
+    if (ice === "normal") iceSpec = "Đá đầy ly";
+    else if (ice === "less") iceSpec = "Đá đến vạch 600";
+    else iceSpec = "Không đá";
+
+    let sweetHongTra = 0;
+    let plainHongTra = 0;
+
+    if (activeSugar === "100%") {
+      sweetHongTra = 100;
+      plainHongTra = 0;
+    } else {
+      sweetHongTra = 60;
+      plainHongTra = 50;
+    }
+
+    ingredients = [
+      { name: "Kem béo", quantity: "40ml" },
+      { name: "Trà Bí Đao", quantity: "200ml" }
+    ];
+
+    if (sweetHongTra > 0) {
+      ingredients.push({ name: "Cốt Hồng trà có đường", quantity: `${sweetHongTra}ml` });
+    }
+    if (plainHongTra > 0) {
+      ingredients.push({ name: "Cốt Hồng trà không đường", quantity: `${plainHongTra}ml` });
+    }
+
+    steps = [
+      "Cho 40ml kem béo vào ly PP.",
+      "Rót 200ml trà Bí Đao vào ly PP."
+    ];
+
+    if (sweetHongTra > 0 && plainHongTra > 0) {
+      steps.push(`Rót ${sweetHongTra}ml cốt Hồng trà có đường và ${plainHongTra}ml cốt Hồng trà không đường vào ly PP.`);
+    } else if (sweetHongTra > 0) {
+      steps.push(`Rót ${sweetHongTra}ml cốt Hồng trà có đường vào ly PP.`);
+    } else {
+      steps.push(`Rót ${plainHongTra}ml cốt Hồng trà không đường vào ly PP.`);
+    }
+
+    if (ice === "normal") {
+      steps.push("Cho đá đầy ly PP.");
+    } else if (ice === "less") {
+      steps.push("Cho đá vào ly PP đến vạch 600.");
+    } else {
+      steps.push("Không cho đá vào ly.");
+    }
+
+    steps.push("Hoàn thành và dập nắp ly.");
+
+    return {
+      tea: activeSugar === "100%" ? "300ml hỗn hợp" : "310ml hỗn hợp",
+      ice: iceSpec,
+      sugar: activeSugar,
+      milk: "40ml kem béo",
+      ingredients: ingredients,
+      steps: steps
+    };
+  }
+
   if (recipe.isLatteTea) {
     const suaVol = isSize1000 ? 150 : 120;
     let duongVol = 0;
@@ -3311,8 +3422,8 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
       sweet = isSize1000 ? 250 : 200;
       plain = isSize1000 ? 100 : 50;
     } else if (activeSugar === "30%") {
-      sweet = isSize1000 ? 150 : 100;
-      plain = isSize1000 ? 200 : 150;
+      sweet = isSize1000 ? 150 : 150;
+      plain = isSize1000 ? 200 : 100;
     } else {
       // 0%
       plain = totalTeaVol;
@@ -3755,7 +3866,7 @@ function openRecipeModal(recipe) {
       });
 
       const iceNote = document.getElementById("modal-ice-note");
-      if (recipe.isTeaBiDaoMix || recipe.isLatteTea || recipe.isChocolateMilkTea || recipe.isTaroMashed || recipe.isFreshMilkTaroMashed || recipe.isXiMuoiOlongMix || recipe.isXiMuoiWinterMelonMix || recipe.isCheeseTea) {
+      if (recipe.isTeaBiDaoMix || recipe.isLatteTea || recipe.isChocolateMilkTea || recipe.isTaroMashed || recipe.isFreshMilkTaroMashed || recipe.isXiMuoiOlongMix || recipe.isXiMuoiWinterMelonMix || recipe.isCheeseTea || recipe.isUyenUong) {
         if (iceNote) {
           if (recipe.isCheeseTea) {
             iceNote.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Không thể cho nhiều đá đối với món kem Cheese!';
@@ -3823,7 +3934,7 @@ function updateModalIngredientsAndSpecs(recipe, size) {
   if (specLblTea) {
     if (recipe.isPinkGuava) {
       specLblTea.innerText = "Nước lọc";
-    } else if (recipe.isOlongWinterMelon || recipe.isTeaBiDaoMix || recipe.isXiMuoiWinterMelonMix || recipe.isXiMuoiOlongMix) {
+    } else if (recipe.isOlongWinterMelon || recipe.isTeaBiDaoMix || recipe.isXiMuoiWinterMelonMix || recipe.isXiMuoiOlongMix || recipe.isUyenUong) {
       specLblTea.innerText = "Hỗn hợp trà";
     } else if (recipe.isEightTreasures) {
       specLblTea.innerText = "Trà sử dụng";
@@ -4205,9 +4316,14 @@ function renderShelfLifeGuidelines() {
 
   DATA.toppingGuidelines.forEach(item => {
     // Format opened hours to days
-    const openedLifeStr = item.openedLife >= 24
-      ? `${item.openedLife / 24} ngày`
-      : `${item.openedLife} giờ`;
+    let openedLifeStr;
+    if (typeof item.openedLife === "string") {
+      openedLifeStr = item.openedLife;
+    } else {
+      openedLifeStr = item.openedLife >= 24
+        ? `${item.openedLife / 24} ngày`
+        : `${item.openedLife} giờ`;
+    }
 
     tbody.innerHTML += `
       <tr>
@@ -4246,7 +4362,8 @@ function submitOpenTopping() {
   if (!guideline) return;
 
   // Expiry time = prepTime + hours * 3600 * 1000
-  const expiryTime = prepTime + (guideline.openedLife * 3600 * 1000);
+  const openedLifeHours = typeof guideline.openedLife === "number" ? guideline.openedLife : 0;
+  const expiryTime = prepTime + (openedLifeHours * 3600 * 1000);
 
   const newActive = {
     id: `shelf-${Date.now()}`,
@@ -4665,6 +4782,31 @@ function getIceDropdownAnswer(iceSpec) {
   return "đầy ly";
 }
 
+function getStorageDropdownAnswer(storeStr) {
+  if (!storeStr) return "nhiệt độ thường";
+  const lower = storeStr.toLowerCase().trim();
+  if (lower === "-") return "-";
+  if (lower.includes("đông")) return "tủ đông";
+  if (lower.includes("mát")) return "tủ mát";
+  return "nhiệt độ thường";
+}
+
+function getValidSugarLevels(recipe) {
+  if (recipe.isFixedSugar || recipe.isXiMuoiWinterMelonMix || recipe.isXiMuoiNgoGia || recipe.minSugar === "100%") {
+    return ["100%"];
+  }
+  if (recipe.isFreshMilkBlackSugar || recipe.isFreshMilkTaroMashed || recipe.isCheeseTea) {
+    return ["100%", "50%", "0%"];
+  }
+  if (recipe.minSugar === "70%") {
+    return ["100%", "70%"];
+  }
+  if (recipe.minSugar === "50%") {
+    return ["100%", "70%", "50%"];
+  }
+  return ["100%", "70%", "50%", "30%", "0%"];
+}
+
 function generateQuizQuestions(num) {
   const questions = [];
   
@@ -4674,11 +4816,8 @@ function generateQuizQuestions(num) {
     const size = recipe.defaultSize;
     
     // Choose sugar and ice levels
-    let sugarLevel = "100%";
-    if (!recipe.isFixedSugar && !recipe.isXiMuoiWinterMelonMix && !recipe.isXiMuoiNgoGia && recipe.minSugar !== "100%") {
-      const sugarLevels = ["70%", "50%", "30%", "0%"];
-      sugarLevel = sugarLevels[Math.floor(Math.random() * sugarLevels.length)];
-    }
+    const validSugars = getValidSugarLevels(recipe);
+    const sugarLevel = validSugars[Math.floor(Math.random() * validSugars.length)];
     
     const iceLevels = ["normal", "less", "none"];
     const iceLevel = iceLevels[Math.floor(Math.random() * iceLevels.length)];
@@ -4815,6 +4954,18 @@ function generateQuizQuestions(num) {
     
     const scoopsMatch = toppingPortion.scoops.match(/^([\d\.]+)\s*(.*)$/);
     const gramsMatch = toppingPortion.grams.match(/^(\d+)g$/);
+
+    const unopenedAns = getStorageDropdownAnswer(toppingGuideline.unopenedStore);
+    const unopenedOptions = ["nhiệt độ thường", "tủ mát", "tủ đông"];
+    if (!unopenedOptions.includes(unopenedAns)) {
+      unopenedOptions.push(unopenedAns);
+    }
+
+    const openedAns = getStorageDropdownAnswer(toppingGuideline.openedStore);
+    const openedOptions = ["nhiệt độ thường", "tủ mát", "tủ đông"];
+    if (!openedOptions.includes(openedAns)) {
+      openedOptions.push(openedAns);
+    }
     
     const fields = [
       {
@@ -4837,21 +4988,25 @@ function generateQuizQuestions(num) {
       },
       {
         label: "Bảo quản chưa khui",
-        correct: toppingGuideline.unopenedStore,
+        correct: unopenedAns,
+        options: unopenedOptions,
         unit: "",
-        inputType: "text"
+        inputType: "select"
       },
       {
         label: "Hạn sử dụng đã khui (sau khi khui)",
-        correct: `${toppingGuideline.openedLife / 24} ngày`,
+        correct: typeof toppingGuideline.openedLife === "number"
+          ? (toppingGuideline.openedLife >= 24 ? `${toppingGuideline.openedLife / 24} ngày` : `${toppingGuideline.openedLife} giờ`)
+          : toppingGuideline.openedLife,
         unit: "",
         inputType: "text"
       },
       {
         label: "Bảo quản đã khui (sau khi khui)",
-        correct: toppingGuideline.openedStore,
+        correct: openedAns,
+        options: openedOptions,
         unit: "",
-        inputType: "text"
+        inputType: "select"
       }
     ];
     
@@ -4871,20 +5026,23 @@ function generateQuizQuestions(num) {
 }
 
 function parseIngredientQuantity(quantity) {
+  // Replace "Nửa" or "nửa" with "0.5" before matching
+  let qty = quantity.replace(/^[Nn]ửa/g, "0.5");
+
   // case: "2 vá (120g)" or "1.5 viên (90g)"
-  const match1 = quantity.match(/^([\d\.]+)\s*([^\d\s()]+)\s*\((\d+)g\)$/);
+  const match1 = qty.match(/^([\d\.]+)\s*([^\d\s()]+)\s*\((\d+)g\)$/);
   if (match1) {
     return { type: "topping", scoops: parseFloat(match1[1]), unit: match1[2], grams: parseInt(match1[3]) };
   }
   
   // case: "120g (1.5 viên)"
-  const match2 = quantity.match(/^(\d+)g\s*\((\d+(?:\.\d+)?)\s*([^\d\s()]+)\)$/);
+  const match2 = qty.match(/^(\d+)g\s*\((\d+(?:\.\d+)?)\s*([^\d\s()]+)\)$/);
   if (match2) {
     return { type: "topping", scoops: parseFloat(match2[2]), unit: match2[3], grams: parseInt(match2[1]) };
   }
   
-  // case: "140ml" or "40cc"
-  const match3 = quantity.match(/^([\d\.]+)\s*(ml|cc)$/i);
+  // case: "140ml", "40cc", "2 lát", "5 miếng", "1 viên", etc.
+  const match3 = qty.match(/^([\d\.]+)\s*([^\d\s()]+)$/i);
   if (match3) {
     return { type: "number", value: parseFloat(match3[1]), unit: match3[2] };
   }
