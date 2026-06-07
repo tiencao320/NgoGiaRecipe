@@ -1554,7 +1554,8 @@ const DATA = {
     { name: "Kem", unopenedLife: "6 tháng", unopenedStore: "Tủ đông", openedLife: 720, openedStore: "Tủ đông" },
     { name: "Hạt sen", unopenedLife: "2 năm", unopenedStore: "Nhiệt độ thường", openedLife: 72, openedStore: "Tủ mát (Dùng tốt trong 3 đến 5 ngày)" },
     { name: "Củ năng", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Tủ mát" },
-    { name: "Pudding sương sáo", unopenedLife: "10 ngày", unopenedStore: "Tủ mát", openedLife: "Dùng ngay", openedStore: "-" },
+    { name: "Pudding sương sáo", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: "Dùng ngay", openedStore: "-" },
+    { name: "Pudding phô mai trứng muối", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: 72, openedStore: "Tủ mát" },
     { name: "Cốt trái cây", unopenedLife: "7 ngày hoặc 24 tháng (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 72, openedStore: "Tủ mát" },
     { name: "Mứt nho", unopenedLife: "2 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Tủ mát" },
     { name: "Sốt nho", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 360, openedStore: "Tủ mát" },
@@ -1565,7 +1566,7 @@ const DATA = {
     { name: "Kem béo", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 120, openedStore: "Tủ mát (Sử dụng tốt từ 5 đến 7 ngày)" },
     { name: "Hạt é", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 720, openedStore: "Nhiệt độ thường" },
     { name: "Kbeo vị sữa", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 120, openedStore: "Tủ mát" },
-    { name: "Siro đường", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 360, unopenedStore: "Nhiệt độ thường" },
+    { name: "Siro đường", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 360, openedStore: "Nhiệt độ thường" },
     { name: "Nước đường", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 720, openedStore: "Nhiệt độ thường" },
     { name: "Trà các loại", unopenedLife: "6 ngày", unopenedStore: "Tủ mát", openedLife: 144, openedStore: "Tủ mát" },
     { name: "Bánh cone", unopenedLife: "3 tháng", unopenedStore: "Nhiệt độ thường", openedLife: 2160, openedStore: "Nhiệt độ thường" }
@@ -1591,6 +1592,7 @@ const DATA = {
     { name: "Hạt sen", scoops: "1 vá", grams: "50g", notes: "" },
     { name: "Củ năng", scoops: "1 vá", grams: "40g", notes: "" },
     { name: "Pudding sương sáo", scoops: "1 cái", grams: "100g", notes: "" },
+    { name: "Pudding phô mai trứng muối", scoops: "1 cái", grams: "100g", notes: "" },
     { name: "Cốt trái cây", scoops: "-", grams: "-", notes: "" },
     { name: "Mứt nho", scoops: "-", grams: "-", notes: "" },
     { name: "Sốt nho", scoops: "-", grams: "-", notes: "" },
@@ -3015,8 +3017,8 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     else if (ice === "less") iceSpec = `Đá đến vạch ${isSize1000 ? "800ml" : "600ml"}`;
     else iceSpec = "Không đá";
 
-    const biDaoVol = isSize1000 
-      ? (recipe.id === "rec-hong-tra-bi-dao-mix" ? 300 : 250) 
+    const biDaoVol = isSize1000
+      ? (recipe.id === "rec-hong-tra-bi-dao-mix" ? 300 : 250)
       : recipe.biDaoVol;
 
     const baseTea = recipe.otherTeaName;
@@ -4749,7 +4751,7 @@ function getDoubleToppingPortion(topping) {
 function getRandomRecipe() {
   const priorityRecipes = DATA.recipes.filter(isPriorityRecipe);
   const normalRecipes = DATA.recipes.filter(r => !isPriorityRecipe(r));
-  
+
   if (priorityRecipes.length > 0 && Math.random() < 0.75) {
     return priorityRecipes[Math.floor(Math.random() * priorityRecipes.length)];
   } else if (normalRecipes.length > 0) {
@@ -4775,10 +4777,10 @@ function getIceDropdownAnswer(iceSpec) {
   if (lower.includes("400")) return "400ml";
   if (lower.includes("450")) return "450ml";
   if (lower.includes("đầy ly") || lower.includes("gần đầy")) return "đầy ly";
-  
+
   const numMatch = iceSpec.match(/(\d+)/);
   if (numMatch) return `${numMatch[1]}ml`;
-  
+
   return "đầy ly";
 }
 
@@ -4809,28 +4811,28 @@ function getValidSugarLevels(recipe) {
 
 function generateQuizQuestions(num) {
   const questions = [];
-  
+
   // 1. Generate 7 formula questions
   for (let i = 0; i < 7; i++) {
     const recipe = getRandomRecipe();
     const size = recipe.defaultSize;
-    
+
     // Choose sugar and ice levels
     const validSugars = getValidSugarLevels(recipe);
     const sugarLevel = validSugars[Math.floor(Math.random() * validSugars.length)];
-    
+
     const iceLevels = ["normal", "less", "none"];
     const iceLevel = iceLevels[Math.floor(Math.random() * iceLevels.length)];
     const iceLabel = iceLevel === "normal" ? "đá bình thường" : (iceLevel === "less" ? "ít đá" : "không đá");
-    
+
     // Topping addition (50% chance)
     let topping = null;
     let isDoubleTopping = false;
-    
+
     if (Math.random() < 0.5) {
-      const validToppings = DATA.toppingPortions.filter(t => 
-        t.scoops !== "-" && 
-        t.grams !== "-" && 
+      const validToppings = DATA.toppingPortions.filter(t =>
+        t.scoops !== "-" &&
+        t.grams !== "-" &&
         !t.name.includes("Trà các loại")
       );
       if (validToppings.length > 0) {
@@ -4838,21 +4840,21 @@ function generateQuizQuestions(num) {
         isDoubleTopping = Math.random() < 0.5;
       }
     }
-    
+
     // Build question text (no "gài" warning)
     let toppingText = topping ? ` thêm ${isDoubleTopping ? "2 phần" : "1 phần"} ${cleanToppingName(topping.name)}` : "";
     const questionText = `Khách order 1 ly <b>"${recipe.name}"</b> (${size}) ở mức <b>${sugarLevel} đường, ${iceLabel}</b>${toppingText} thì công thức đong là:`;
-    
+
     const specs = calculatePureTeaSpecs(recipe, size, sugarLevel, iceLevel);
-    
+
     const fields = [];
-    
+
     // If topping added
     if (topping) {
       const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
       const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
       const gramsMatch = portion.grams.match(/^(\d+)/);
-      
+
       fields.push({
         label: `${cleanToppingName(topping.name)} (số muỗng/viên/miếng)`,
         correct: scoopsMatch ? parseFloat(scoopsMatch[1]) : portion.scoops,
@@ -4868,7 +4870,7 @@ function generateQuizQuestions(num) {
         });
       }
     }
-    
+
     // Add ingredients from specs
     specs.ingredients.forEach(ing => {
       // Check if this ingredient is the added topping (using clean names comparison)
@@ -4877,7 +4879,7 @@ function generateQuizQuestions(num) {
         const cleanTop = cleanToppingName(topping.name).toLowerCase();
         if (cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng)) return;
       }
-      
+
       const parsed = parseIngredientQuantity(ing.quantity);
       if (parsed.type === "topping") {
         fields.push({
@@ -4910,14 +4912,14 @@ function generateQuizQuestions(num) {
         });
       }
     });
-    
+
     // Add ice spec
     const iceAns = getIceDropdownAnswer(specs.ice);
     const defaultOptions = ["đầy ly", "600ml", "300ml", "800ml", "400ml", "không bỏ đá"];
     if (!defaultOptions.includes(iceAns)) {
       defaultOptions.push(iceAns);
     }
-    
+
     fields.push({
       label: "Định lượng đá",
       correct: iceAns,
@@ -4925,7 +4927,7 @@ function generateQuizQuestions(num) {
       unit: "",
       inputType: "select"
     });
-    
+
     questions.push({
       type: "formula",
       recipeId: recipe.id,
@@ -4934,24 +4936,24 @@ function generateQuizQuestions(num) {
       fields: fields
     });
   }
-  
+
   // 2. Generate 3 topping questions
   for (let i = 0; i < 3; i++) {
-    const validToppings = DATA.toppingPortions.filter(t => 
-      t.scoops !== "-" && 
-      t.grams !== "-" && 
+    const validToppings = DATA.toppingPortions.filter(t =>
+      t.scoops !== "-" &&
+      t.grams !== "-" &&
       !t.name.includes("Trà các loại")
     );
     const toppingPortion = validToppings[Math.floor(Math.random() * validToppings.length)];
     const toppingGuideline = DATA.toppingGuidelines.find(g => g.name === toppingPortion.name);
-    
+
     if (!toppingGuideline) {
       i--;
       continue;
     }
-    
+
     const questionText = `Định lượng múc tiêu chuẩn và hạn sử dụng của topping <b>"${cleanToppingName(toppingGuideline.name)}"</b> là:`;
-    
+
     const scoopsMatch = toppingPortion.scoops.match(/^([\d\.]+)\s*(.*)$/);
     const gramsMatch = toppingPortion.grams.match(/^(\d+)g$/);
 
@@ -4966,7 +4968,7 @@ function generateQuizQuestions(num) {
     if (!openedOptions.includes(openedAns)) {
       openedOptions.push(openedAns);
     }
-    
+
     const fields = [
       {
         label: "Định lượng (số muỗng/viên/miếng)",
@@ -5009,7 +5011,7 @@ function generateQuizQuestions(num) {
         inputType: "select"
       }
     ];
-    
+
     questions.push({
       type: "topping",
       recipeId: "topping",
@@ -5018,10 +5020,10 @@ function generateQuizQuestions(num) {
       fields: fields
     });
   }
-  
+
   // Shuffle questions
   questions.sort(() => 0.5 - Math.random());
-  
+
   return questions;
 }
 
@@ -5034,19 +5036,19 @@ function parseIngredientQuantity(quantity) {
   if (match1) {
     return { type: "topping", scoops: parseFloat(match1[1]), unit: match1[2], grams: parseInt(match1[3]) };
   }
-  
+
   // case: "120g (1.5 viên)"
   const match2 = qty.match(/^(\d+)g\s*\((\d+(?:\.\d+)?)\s*([^\d\s()]+)\)$/);
   if (match2) {
     return { type: "topping", scoops: parseFloat(match2[2]), unit: match2[3], grams: parseInt(match2[1]) };
   }
-  
+
   // case: "140ml", "40cc", "2 lát", "5 miếng", "1 viên", etc.
   const match3 = qty.match(/^([\d\.]+)\s*([^\d\s()]+)$/i);
   if (match3) {
     return { type: "number", value: parseFloat(match3[1]), unit: match3[2] };
   }
-  
+
   return { type: "text", value: quantity };
 }
 
@@ -5079,7 +5081,7 @@ function loadQuizQuestion() {
   // Choices container
   const container = document.getElementById("quiz-choices-container");
   container.innerHTML = "";
-  
+
   const formDiv = document.createElement("div");
   formDiv.style.display = "flex";
   formDiv.style.flexDirection = "column";
@@ -5088,7 +5090,7 @@ function loadQuizQuestion() {
   formDiv.style.width = "100%";
   formDiv.style.maxWidth = "600px";
   formDiv.style.margin = "0 auto";
-  
+
   question.fields.forEach((field, fIdx) => {
     const row = document.createElement("div");
     row.style.display = "flex";
@@ -5099,16 +5101,16 @@ function loadQuizQuestion() {
     row.style.borderRadius = "12px";
     row.style.background = "rgba(255, 255, 255, 0.03)";
     row.style.border = "1px solid rgba(255,255,255,0.05)";
-    
+
     const labelSpan = document.createElement("span");
     labelSpan.innerHTML = `<b>${field.label}</b>:`;
     labelSpan.style.minWidth = "220px";
     labelSpan.style.fontSize = "0.9rem";
-    
+
     let input;
     if (field.inputType === "select") {
       input = document.createElement("select");
-      
+
       const placeholderOpt = document.createElement("option");
       placeholderOpt.value = "";
       placeholderOpt.innerText = "-- Chọn đáp án --";
@@ -5117,7 +5119,7 @@ function loadQuizQuestion() {
       placeholderOpt.style.background = "#112233";
       placeholderOpt.style.color = "var(--white)";
       input.appendChild(placeholderOpt);
-      
+
       field.options.forEach(opt => {
         const option = document.createElement("option");
         option.value = opt;
@@ -5126,14 +5128,14 @@ function loadQuizQuestion() {
         option.style.color = "#ffffff";
         input.appendChild(option);
       });
-      
+
       input.style.cursor = "pointer";
     } else {
       input = document.createElement("input");
       input.type = "text";
       input.placeholder = "Nhập kết quả...";
     }
-    
+
     input.setAttribute("data-field-idx", fIdx);
     input.classList.add("quiz-input-field");
     input.style.padding = "6px 12px";
@@ -5145,26 +5147,26 @@ function loadQuizQuestion() {
     input.style.outline = "none";
     input.style.width = field.inputType === "select" ? "170px" : "140px";
     input.style.fontSize = "0.9rem";
-    
+
     const unitSpan = document.createElement("span");
     unitSpan.innerText = field.unit;
     unitSpan.style.fontSize = "0.85rem";
     unitSpan.style.color = "var(--primary-light)";
-    
+
     const feedbackSpan = document.createElement("span");
     feedbackSpan.id = `quiz-feedback-${fIdx}`;
     feedbackSpan.style.display = "none";
     feedbackSpan.style.fontSize = "0.85rem";
     feedbackSpan.style.fontWeight = "600";
-    
+
     row.appendChild(labelSpan);
     row.appendChild(input);
     if (field.unit) row.appendChild(unitSpan);
     row.appendChild(feedbackSpan);
-    
+
     formDiv.appendChild(row);
   });
-  
+
   // Submit Button
   const submitBtn = document.createElement("button");
   submitBtn.classList.add("btn", "btn-primary");
@@ -5175,7 +5177,7 @@ function loadQuizQuestion() {
   submitBtn.style.marginTop = "10px";
   submitBtn.innerHTML = `<i class="fa-solid fa-check" style="margin-right: 6px;"></i> Xác nhận`;
   submitBtn.addEventListener("click", evaluateQuizInputs);
-  
+
   formDiv.appendChild(submitBtn);
   container.appendChild(formDiv);
 }
@@ -5183,17 +5185,17 @@ function loadQuizQuestion() {
 function evaluateQuizInputs() {
   const index = appState.currentQuizIndex;
   const question = appState.currentQuizQuestions[index];
-  
+
   let allCorrect = true;
-  
+
   question.fields.forEach((field, fIdx) => {
     const inputEl = document.querySelector(`.quiz-input-field[data-field-idx="${fIdx}"]`);
     const feedbackEl = document.getElementById(`quiz-feedback-${fIdx}`);
     if (!inputEl || !feedbackEl) return;
-    
+
     const userVal = inputEl.value.trim();
     let isFieldCorrect = false;
-    
+
     if (field.inputType === "number") {
       const userFloat = parseFloat(userVal);
       const correctFloat = parseFloat(field.correct);
@@ -5201,9 +5203,9 @@ function evaluateQuizInputs() {
     } else {
       isFieldCorrect = cleanText(userVal) === cleanText(field.correct);
     }
-    
+
     inputEl.disabled = true;
-    
+
     if (isFieldCorrect) {
       inputEl.style.borderColor = "var(--safe-green)";
       inputEl.style.color = "var(--safe-green)";
@@ -5219,13 +5221,13 @@ function evaluateQuizInputs() {
       feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark" style="margin-left: 6px;"></i> Sai (Đúng: ${field.correct})`;
     }
   });
-  
+
   const submitBtn = document.getElementById("btn-quiz-submit");
   if (submitBtn) submitBtn.style.display = "none";
-  
+
   // Record this answer
   appState.quizAnswers.push(allCorrect ? "correct" : "incorrect");
-  
+
   // Show "Next" or "Finish" button
   const nextBtn = document.getElementById("btn-quiz-next");
   const totalQuestions = appState.currentQuizQuestions.length;
