@@ -4787,14 +4787,35 @@ function generateQuizQuestions(num) {
     let isDoubleTopping = false;
 
     if (Math.random() < 0.5) {
-      const validToppings = DATA.toppingPortions.filter(t =>
-        t.scoops !== "-" &&
-        t.grams !== "-" &&
-        !t.name.includes("Trà các loại")
-      );
-      if (validToppings.length > 0) {
-        topping = validToppings[Math.floor(Math.random() * validToppings.length)];
+      const isPeachTea = recipe.isPeachTea || recipe.name.toLowerCase().includes("trà đào") || recipe.name.toLowerCase().includes("ô long đào");
+      const isKhoaiMonNghienTraSua = recipe.name.toLowerCase().includes("khoai môn nghiền") && recipe.name.toLowerCase().includes("trà sữa");
+      const isMilkTea = recipe.category === "milk-tea" || recipe.name.toLowerCase().includes("trà sữa");
+
+      if (isPeachTea) {
+        // Priority: 2 parts of Đào miếng or Thạch đào
+        const possibleNames = ["Đào miếng", "Thạch đào"];
+        const chosenName = possibleNames[Math.floor(Math.random() * possibleNames.length)];
+        topping = DATA.toppingPortions.find(t => t.name === chosenName);
+        isDoubleTopping = true;
+      } else if (isKhoaiMonNghienTraSua) {
+        // Priority: 1 part of K.môn nghiền
+        topping = DATA.toppingPortions.find(t => t.name === "K.môn nghiền");
+        isDoubleTopping = false;
+      } else if (isMilkTea) {
+        // Priority: 1 or 2 parts of Trân châu đường đen-5h
+        topping = DATA.toppingPortions.find(t => t.name === "Trân châu đường đen-5h");
         isDoubleTopping = Math.random() < 0.5;
+      } else {
+        // Fallback: completely random topping
+        const validToppings = DATA.toppingPortions.filter(t =>
+          t.scoops !== "-" &&
+          t.grams !== "-" &&
+          !t.name.includes("Trà các loại")
+        );
+        if (validToppings.length > 0) {
+          topping = validToppings[Math.floor(Math.random() * validToppings.length)];
+          isDoubleTopping = Math.random() < 0.5;
+        }
       }
     }
 
