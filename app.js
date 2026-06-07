@@ -4722,6 +4722,63 @@ function cleanToppingName(name) {
   return name.replace(/-\d+h$/gi, "");
 }
 
+function areToppingsMatching(name1, name2) {
+  if (!name1 || !name2) return false;
+  const n1 = cleanToppingName(name1).toLowerCase().trim();
+  const n2 = cleanToppingName(name2).toLowerCase().trim();
+  
+  if (n1 === n2) return true;
+  if (n1.includes(n2) || n2.includes(n1)) return true;
+  
+  // 1. "đào miếng" vs "miếng đào"
+  if (
+    (n1.includes("đào") && n1.includes("miếng") && n2.includes("đào") && n2.includes("miếng")) ||
+    (n1.includes("miếng đào") && n2.includes("đào miếng")) ||
+    (n1.includes("đào miếng") && n2.includes("miếng đào"))
+  ) {
+    return true;
+  }
+  
+  // 2. "thạch aiyu" vs "aiyu"
+  if (n1.includes("aiyu") && n2.includes("aiyu")) {
+    return true;
+  }
+  
+  // 3. "trân châu 3q" vs "3q trắng" vs "3q"
+  if (n1.includes("3q") && n2.includes("3q")) {
+    return true;
+  }
+  
+  // 4. "trân châu củ năng" vs "tc củ năng" vs "thủy tinh củ năng" vs "hạt thủy tinh củ năng"
+  if (n1.includes("củ năng") && n2.includes("củ năng")) {
+    return true;
+  }
+
+  // 5. "bánh vuông mini đường đen" vs "bánh vuông"
+  if (n1.includes("bánh vuông") && n2.includes("bánh vuông")) {
+    return true;
+  }
+  
+  // 6. "khoai môn nghiền" vs "k.môn nghiền"
+  if (
+    (n1.includes("khoai môn nghiền") || n1.includes("k.môn nghiền")) &&
+    (n2.includes("khoai môn nghiền") || n2.includes("k.môn nghiền"))
+  ) {
+    return true;
+  }
+
+  // 7. "kem tươi" vs "kem vani"
+  if (
+    (n1.includes("kem tươi") || n1.includes("kem vani")) &&
+    (n2.includes("kem tươi") || n2.includes("kem vani"))
+  ) {
+    return true;
+  }
+  
+  return false;
+}
+
+
 function getIceDropdownAnswer(iceSpec) {
   if (!iceSpec) return "không bỏ đá";
   const lower = iceSpec.toLowerCase();
@@ -4831,9 +4888,7 @@ function generateQuizQuestions(num) {
     let isToppingAlreadyInRecipe = false;
     if (topping) {
       isToppingAlreadyInRecipe = specs.ingredients.some(ing => {
-        const cleanIng = cleanToppingName(ing.name).toLowerCase();
-        const cleanTop = cleanToppingName(topping.name).toLowerCase();
-        return cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng);
+        return areToppingsMatching(ing.name, topping.name);
       });
     }
 
@@ -4863,15 +4918,11 @@ function generateQuizQuestions(num) {
     specs.ingredients.forEach(ing => {
       // Check if this ingredient is the added topping (using clean names comparison)
       if (topping && !isToppingAlreadyInRecipe) {
-        const cleanIng = cleanToppingName(ing.name).toLowerCase();
-        const cleanTop = cleanToppingName(topping.name).toLowerCase();
-        if (cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng)) return;
+        if (areToppingsMatching(ing.name, topping.name)) return;
       }
 
       const parsed = parseIngredientQuantity(ing.quantity);
-      const cleanIng = cleanToppingName(ing.name).toLowerCase();
-      const cleanTop = topping ? cleanToppingName(topping.name).toLowerCase() : "";
-      const isMatchingTopping = topping && (cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng));
+      const isMatchingTopping = topping && areToppingsMatching(ing.name, topping.name);
 
       if (isMatchingTopping) {
         if (parsed.type === "topping") {
