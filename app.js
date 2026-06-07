@@ -1542,16 +1542,16 @@ const DATA = {
     { name: "Sương sáo", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: 48, openedStore: "Tủ mát" },
     { name: "Thạch Q", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: 48, openedStore: "Tủ mát" },
     { name: "3Q trắng", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 48, openedStore: "Tủ mát" },
-    { name: "Đường đen-5h", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Nhiệt độ thường" },
+    { name: "Trân châu đường đen-5h", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Nhiệt độ thường" },
     { name: "Ngũ sắc-5h", unopenedLife: "6 tháng", unopenedStore: "Nhiệt độ thường", openedLife: 72, openedStore: "Nhiệt độ thường" },
-    { name: "Khoai môn-5h", unopenedLife: "6 tháng", unopenedStore: "Tủ đông", openedLife: 72, openedStore: "Tủ đông (Gói 500g dùng trong 3 ngày / Gói 1kg dùng trong 7 ngày)" },
+    { name: "Trân châu khoai môn-5h", unopenedLife: "6 tháng", unopenedStore: "Tủ đông", openedLife: 72, openedStore: "Tủ đông (Gói 500g dùng trong 3 ngày / Gói 1kg dùng trong 7 ngày)" },
     { name: "TC củ năng-5h", unopenedLife: "12 tháng", unopenedStore: "Tủ đông", openedLife: 120, openedStore: "Tủ đông" },
     { name: "Tc vị dâu-5h", unopenedLife: "12 tháng", unopenedStore: "Tủ đông", openedLife: 120, openedStore: "Tủ đông" },
     { name: "Khoai dẻo-5h", unopenedLife: "12 tháng", unopenedStore: "Tủ đông", openedLife: 120, openedStore: "Tủ đông" },
     { name: "Bánh vuông-5h", unopenedLife: "12 tháng", unopenedStore: "Tủ đông", openedLife: 120, openedStore: "Tủ đông" },
     { name: "K.môn nghiền", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: 72, openedStore: "Tủ mát" },
     { name: "Đào miếng", unopenedLife: "3 năm", unopenedStore: "Nhiệt độ thường", openedLife: 48, openedStore: "Tủ mát" },
-    { name: "Kem", unopenedLife: "6 tháng", unopenedStore: "Tủ đông", openedLife: 720, openedStore: "Tủ đông" },
+    { name: "Kem Vani", unopenedLife: "6 tháng", unopenedStore: "Tủ đông", openedLife: 720, openedStore: "Tủ đông" },
     { name: "Hạt sen", unopenedLife: "2 năm", unopenedStore: "Nhiệt độ thường", openedLife: 72, openedStore: "Tủ mát (Dùng tốt trong 3 đến 5 ngày)" },
     { name: "Củ năng", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 168, openedStore: "Tủ mát" },
     { name: "Pudding sương sáo", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: "Dùng ngay", openedStore: "-" },
@@ -1579,20 +1579,20 @@ const DATA = {
     { name: "Sương sáo", scoops: "2 vá", grams: "80g", notes: "" },
     { name: "Thạch Q", scoops: "1 vá", grams: "40g", notes: "" },
     { name: "3Q trắng", scoops: "1 vá", grams: "45g", notes: "" },
-    { name: "Đường đen-5h", scoops: "2 vá", grams: "120g", notes: "" },
+    { name: "Trân châu đường đen-5h", scoops: "2 vá", grams: "120g", notes: "" },
     { name: "Ngũ sắc-5h", scoops: "2 vá", grams: "100g", notes: "" },
-    { name: "Khoai môn-5h", scoops: "1 vá", grams: "50g", notes: "" },
+    { name: "Trân châu khoai môn-5h", scoops: "1 vá", grams: "50g", notes: "" },
     { name: "TC củ năng-5h", scoops: "2 vá", grams: "100g", notes: "" },
     { name: "Tc vị dâu-5h", scoops: "2 vá", grams: "100g", notes: "" },
     { name: "Khoai dẻo-5h", scoops: "2 vá", grams: "100g", notes: "" },
     { name: "Bánh vuông-5h", scoops: "2 vá", grams: "100g", notes: "" },
     { name: "K.môn nghiền", scoops: "1 viên", grams: "80g", notes: "" },
     { name: "Đào miếng", scoops: "5 miếng", grams: "25g", notes: "" },
-    { name: "Kem", scoops: "1 viên", grams: "60g", notes: "" },
+    { name: "Kem Vani", scoops: "1 viên", grams: "60g", notes: "" },
     { name: "Hạt sen", scoops: "1 vá", grams: "50g", notes: "" },
-    { name: "Củ năng", scoops: "1 vá", grams: "40g", notes: "" },
+    { name: "Hạt thủy tinh củ năng", scoops: "1 vá", grams: "40g", notes: "" },
     { name: "Pudding sương sáo", scoops: "1 cái", grams: "100g", notes: "" },
-    { name: "Pudding phô mai trứng muối", scoops: "1 cái", grams: "100g", notes: "" },
+    { name: "Pudding phô mai trứng muối", scoops: "2 muỗng", grams: "100g", notes: "" },
     { name: "Cốt trái cây", scoops: "-", grams: "-", notes: "" },
     { name: "Mứt nho", scoops: "-", grams: "-", notes: "" },
     { name: "Sốt nho", scoops: "-", grams: "-", notes: "" },
@@ -1614,25 +1614,26 @@ const DATA = {
       id: "cook-pearl-black",
       name: "Trân Châu Đường Đen",
       ratios: "Định lượng nấu: 500g<br>Lượng nước: 2000ml<br>Nước đường: 60cc<br>Đường đen: 90cc<br><br>Định lượng nấu: 1000g<br>Lượng nước: 3000ml<br>Nước đường: 120cc<br>Đường đen: 200cc<br><br>Định lượng nấu: 1500g<br>Lượng nước: 4000ml<br>Nước đường: 170cc<br>Đường đen: 250cc<br><br>Định lượng nấu: 2000g<br>Lượng nước: 5000ml<br>Nước đường: 220cc<br>Đường đen: 300cc<br><br>Định lượng nấu: 2500g<br>Lượng nước: 6000ml<br>Nước đường: 270cc<br>Đường đen: 390cc",
-      prep: "Chuẩn bị rây lọc, thau rửa, thau ngâm đường cát và nước ấm.",
+      prep: "Chuẩn bị đường đen và nước đường đặc biệt theo tỷ lệ nấu",
       steps: [
-        { title: "Đun sôi nước", desc: "Đổ nước lọc theo tỷ lệ vào nồi lớn, bật bếp ga/bếp từ đun đến khi nước sôi bùng lên 100°C.", timer: 0 },
-        { title: "Thả trân châu luộc chín", desc: "Thả từ từ hạt trân châu vào nồi nước sôi bùng, khuấy nhẹ và liên tục một chiều để trân châu không dính đáy nồi. Khi trân châu nổi hẳn lên mặt, đậy hé nắp vung đun lửa vừa trong 30 phút.", timer: 1800 },
-        { title: "Ủ trân châu đen", desc: "Tắt bếp hoàn toàn, đóng chặt nắp vung nồi. Để nồi trên bếp ủ kín trân châu trong 30 phút tiếp theo nhằm chín nhừ tận lõi hạt.", timer: 1800 },
-        { title: "Rửa trân châu nước lạnh", desc: "Đổ toàn bộ trân châu ra rây lọc, rửa sạch dưới vòi nước lạnh sạch đang xả để loại bỏ nhớt đục của bột năng và giúp hạt trân châu săn giòn dai hơn.", timer: 0 },
-        { title: "Ngâm nước đường bảo quản", desc: "Để ráo nước rồi đổ trân châu vào thau, trộn đều nước đường đen đậm đặc hoặc đường cát trắng (100g đường trên 1kg trân châu) để giữ độ dẻo ngọt ấm thơm trong 4 giờ làm việc.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ nấu, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 0 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1800 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 1800 },
+        { title: "Chuẩn bị", desc: "Chuẩn bị siro đường và nước đường đặc biệt", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Sau khi kết thúc ủ, mở nắp và ray trân châu cho bớt nước (không được để quá khô), cho ra nồi cùng hỗn hợp đường và khuấy đều cho tan ra rồi thử thành phẩm.", timer: 0 }
       ]
     },
     {
       id: "cook-pearl-taro",
       name: "Trân Châu Khoai Môn",
       ratios: "Định lượng nấu: 150 gram<br>Lượng nước: 1500ml<br>Nước đường: 25cc<br><br>Định lượng nấu: 300 gram<br>Lượng nước: 2500ml<br>Nước đường: 50cc<br><br>Định lượng nấu: 500 gram<br>Lượng nước: 2500ml<br>Nước đường: 75cc",
-      prep: "Chuẩn bị thau sạch và đường cát ngâm.",
+      prep: "Rã đông bớt nếu trân châu quá đông cứng",
       steps: [
-        { title: "Chuẩn bị đun sôi", desc: "Đun nước sôi bùng rồi thả hạt trân châu khoai môn tươi vào nồi khuấy đều.", timer: 0 },
-        { title: "Luộc lửa vừa", desc: "Khi hạt nổi lên, đậy nắp hé đun sôi sùng sục trong 25 phút để hạt chín thấu màu tím nhạt.", timer: 1500 },
-        { title: "Ủ trân châu khoai môn", desc: "Tắt bếp, đậy nắp kín nồi và tiến hành ủ ấm trân châu trên bếp trong 25 phút.", timer: 1500 },
-        { title: "Xả nước lạnh & trộn đường", desc: "Rửa sạch nhớt bột dưới vòi nước mát sạch, để ráo rồi ngâm trộn với đường cát trắng giữ hương thơm bùi khoai môn.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ vào nồi lớn, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 1200 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1200 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 0 },
+        { title: "Rửa trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu sau khi đổ ra rổ rửa lại bằng nước uống và cho ra khay ( vẫn giữ cho trân châu được ấm)", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Cho trân châu vào khay, đổ nước đường khuấy đều để hỗn hợp tan ra và thử thành phẩm", timer: 0 }
       ]
     },
     {
@@ -1641,55 +1642,75 @@ const DATA = {
       ratios: "Định lượng nấu: 300g<br>Lượng nước: 2000ml<br>Nước đường: 70cc<br><br>Định lượng nấu: 500g<br>Lượng nước: 2500ml<br>Nước đường: 100cc<br><br>Định lượng nấu: 1000g<br>Lượng nước: 3500ml<br>Nước đường: 150cc",
       prep: "Rây bột vụn trước khi thả vào luộc.",
       steps: [
-        { title: "Luộc trân châu ngũ sắc", desc: "Thả trân châu ngũ sắc vào nồi nước sôi bùng, khuấy nhẹ đều tay. Đậy vung đun lửa vừa trong 20 phút.", timer: 1200 },
-        { title: "Ủ ngũ sắc chín trong", desc: "Tắt bếp, giữ kín vung ủ trân châu ngũ sắc trong 20 phút cho bột trong đều óng ánh.", timer: 1200 },
-        { title: "Xả lạnh & ngâm đường", desc: "Rửa thật sạch tinh bột thừa bằng nước lạnh sạch. Trộn nước đường loãng tạo lớp phủ óng ánh bảo vệ hạt không bị dính cục.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ vào nồi lớn, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 1200 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1200 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 0 },
+        { title: "Rửa trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu sau khi đổ ra rổ rửa lại bằng nước uống và cho ra khay ( vẫn giữ cho trân châu được ấm)", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Cho trân châu vào khay, đổ nước đường khuấy đều để hỗn hợp tan ra và thử thành phẩm", timer: 0 }
+
       ]
     },
     {
       id: "cook-pearl-chestnut",
       name: "Trân châu củ năng",
       ratios: "Định lượng nấu: 300 gram<br>Lượng nước: 2000ml<br>Nước đường: 50cc<br><br>Định lượng nấu: 500 gram<br>Lượng nước: 3000ml<br>Nước đường: 100cc<br><br>Định lượng nấu: 1000 gram<br>Lượng nước: 4000ml<br>Nước đường: 200cc",
-      prep: "Làm củ năng tươi xắt hạt lựu nhỏ, áo đều bột năng khô mỏng rồi rây bớt bột thừa.",
+      prep: "Rã đông nếu trân châu đông quá cứng",
       steps: [
-        { title: "Thả luộc nhanh", desc: "Nước sôi sùng sục thả trân châu củ năng vào khuấy nhẹ để chống dính bột. Loại này bột tươi chín nhanh.", timer: 0 },
-        { title: "Luộc chín trong nổi lên mặt", desc: "Đun sôi sùng sục lửa to trong 4 phút cho đến khi hạt bột trở nên trong suốt nhìn thấy củ năng trắng bên trong và nổi lên mặt nước.", timer: 240 },
-        { title: "Ngâm đá lạnh cấp tốc", desc: "Vớt ngay trân châu củ năng ra thau nước đá lạnh buốt ngâm trong 5 phút để định hình độ giòn sần sật của củ năng không bị nát bột ngoài.", timer: 300 },
-        { title: "Vớt trộn siro đường cát", desc: "Vớt ráo, ngâm siro đường cát lỏng để hạt củ năng ngọt nhẹ, óng ánh sắc hồng/xanh tùy màu làm.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ vào nồi lớn, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 1200 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1200 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 0 },
+        { title: "Rửa trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu sau khi đổ ra rổ rửa lại bằng nước uống và cho ra khay ( vẫn giữ cho trân châu được ấm)", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Cho trân châu vào khay, đổ nước đường khuấy đều để hỗn hợp tan ra và thử thành phẩm", timer: 0 }
       ]
     },
     {
       id: "cook-pearl-strawberry",
       name: "Trân châu dâu",
       ratios: "Định lượng nấu: 150 gram<br>Lượng nước: 2000ml<br>Nước đường: 25cc<br><br>Định lượng nấu: 300 gram<br>Lượng nước: 2500ml<br>Nước đường: 50cc<br><br>Định lượng nấu: 500 gram<br>Lượng nước: 2500ml<br>Nước đường: 75cc",
-      prep: "Chuẩn bị siro dâu hoặc đường ngâm.",
+      prep: "Rã đông nếu trân châu đông quá cứng",
       steps: [
-        { title: "Luộc trân châu dâu", desc: "Thả trân châu dâu vào nước sôi bùng, đậy vung hé luộc lửa vừa trong 20 phút.", timer: 1200 },
-        { title: "Ủ trân châu dâu", desc: "Tắt bếp đậy nắp kín ủ trân châu dâu trong 25 phút để dẻo đều từ trong ra.", timer: 1500 },
-        { title: "Rửa nhớt & ngâm siro", desc: "Rửa nhanh nước lạnh xả sạch. Ngâm siro dâu thơm ngọt để trân châu dâu có sắc đỏ hồng mướt mắt và thơm ngát hương dâu.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ vào nồi lớn, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 1200 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1200 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 0 },
+        { title: "Rửa trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu sau khi đổ ra rổ rửa lại bằng nước uống và cho ra khay ( vẫn giữ cho trân châu được ấm)", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Cho trân châu vào khay, đổ nước đường khuấy đều để hỗn hợp tan ra và thử thành phẩm", timer: 0 }
       ]
     },
     {
       id: "cook-jelly-brown-sugar",
       name: "Bánh vuông đường đen",
       ratios: "Định lượng nấu: 300 gram<br>Lượng nước: 2000ml<br>Nước đường: 50cc<br><br>Định lượng nấu: 500 gram<br>Lượng nước: 3000ml<br>Nước đường: 100cc<br><br>Định lượng nấu: 1000 gram<br>Lượng nước: 4000ml<br>Nước đường: 200cc",
-      prep: "Chuẩn bị nồi chống dính vì bánh vuông dễ bám đáy.",
+      prep: "Rã đông bớt nếu bánh vuông quá đông cứng",
       steps: [
-        { title: "Đun luộc bánh vuông", desc: "Nước sôi thả bánh vuông đường đen vào, khuấy liên tục sát đáy nồi. Đun lửa vừa trong 25 phút.", timer: 1500 },
-        { title: "Ủ ngấm đường", desc: "Tắt bếp đậy nắp nồi ủ bánh vuông trong 20 phút cho bánh nở căng và chín dẻo dai.", timer: 1200 },
-        { title: "Rửa thau đá lạnh & ngâm xốt", desc: "Rửa trôi nhớt bột bằng nước mát sạch. Để thật ráo rồi ngâm trong xốt đường đen đậm đặc giúp ngấm ngọt sâu đậm vị.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ vào nồi lớn, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 1200 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1200 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 0 },
+        { title: "Rửa trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu sau khi đổ ra rổ rửa lại bằng nước uống và cho ra khay ( vẫn giữ cho trân châu được ấm)", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Cho trân châu vào khay, đổ nước đường khuấy đều để hỗn hợp tan ra và thử thành phẩm", timer: 0 }
       ]
     },
     {
       id: "cook-potato-balls",
       name: "Khoai dẻo tam sắc",
       ratios: "Định lượng nấu: 300 gram<br>Lượng nước: 2000ml<br>Nước đường: 30cc<br><br>Định lượng nấu: 500 gram<br>Lượng nước: 3000ml<br>Nước đường: 60cc<br><br>Định lượng nấu: 1000 gram<br>Lượng nước: 4000ml<br>Nước đường: 120cc",
-      prep: "Khoai dẻo trữ đông cần rã đông nhẹ ngoài tủ mát trước khi thả luộc.",
+      prep: "Rã đông bớt nếu viên khoai dẻo quá đông cứng",
       steps: [
-        { title: "Luộc viên khoai dẻo", desc: "Thả viên khoai dẻo màu vàng, tím, cam vào nồi nước sôi bùng. Khuấy nhẹ tay tránh làm vỡ viên khoai còn mềm.", timer: 0 },
-        { title: "Đun sôi đến khi nổi đều", desc: "Đun sôi lửa vừa khi khoai nổi lên mặt nước đun thêm 4 phút cho khoai chín dẻo thơm.", timer: 240 },
-        { title: "Ủ lạnh cấp tốc", desc: "Vớt ngay khoai dẻo thả thau nước đá lạnh ngâm 5 phút giúp giữ độ giòn dẻo bóng và không bị nát nhão.", timer: 300 },
-        { title: "Ngâm nước đường loãng ấm", desc: "Vớt ráo, trộn nước đường loãng ấm đậy kín để giữ cấu trúc dẻo dai ngọt thanh bùi vị khoai môn, khoai lang.", timer: 0 }
+        { title: "Đun sôi nước", desc: "Đổ nước vào nồi theo tỷ lệ vào nồi lớn, chỉnh chế độ nấu (nếu có nhiều vụn thì dùng ray lọc ra)", timer: 1200 },
+        { title: "Thả trân châu vào nồi", desc: "Khi nước sôi, sẽ có tiếng báo, cho trân châu vào nồi khuấy đều và đóng nắp lại", timer: 1200 },
+        { title: "Ủ trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu tầm 3-5 vòng cho trân châu tơi ra, đậy nắp lại nồi sẽ chuyển qua chế độ ủ", timer: 0 },
+        { title: "Rửa trân châu", desc: "Sau khi nấu xong thì mở nắp khuấy trân châu sau khi đổ ra rổ rửa lại bằng nước uống và cho ra khay ( vẫn giữ cho trân châu được ấm)", timer: 0 },
+        { title: "Hoàn thành và ngâm đường", desc: "Cho trân châu vào khay, đổ nước đường khuấy đều để hỗn hợp tan ra và thử thành phẩm", timer: 0 }
+      ]
+    },
+    {
+      id: "cook-basil-seeds",
+      name: "Pha hạt é",
+      ratios: "Hạt é: 10g<br>Lượng nước: 300ml<br>Nước đường: 50ml<br><br>Hạt é: 20g<br>Lượng nước: 600ml<br>Nước đường: 100ml<br><br>Hạt é: 30g<br>Lượng nước: 900ml<br>Nước đường: 150ml",
+      prep: "Chuẩn bị hạt é khô sạch, nước lọc ấm và nước đường theo tỷ lệ.",
+      steps: [
+        { title: "Đong hạt é & nước", desc: "Đong hạt é và nước uống theo tỷ lệ.", timer: 0 },
+        { title: "Thêm nước đường", desc: "Cho nước đường vào theo tỷ lệ hạt é ngâm.", timer: 900 },
+        { title: "Trộn đều hỗn hợp", desc: "Trộn đều hỗn hợp để hạt ngấm ngọt thanh và chống vón cục.", timer: 0 }
       ]
     }
   ]
@@ -4095,11 +4116,6 @@ function renderCookingGuideDetail(guideId) {
       <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.6;">
         <b>Chuẩn bị:</b> ${guide.prep}
       </p>
-      
-      <div style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--glass-border); font-size: 0.8rem; color: var(--primary-light);">
-        <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning-yellow);"></i> 
-        Hãy bấm bắt đầu đồng hồ hẹn giờ cho các bước đun/luộc/ủ để đảm bảo chín dẻo tiêu chuẩn và không cháy khét mẻ.
-      </div>
     `;
   }
 
@@ -4111,74 +4127,15 @@ function renderCookingGuideDetail(guideId) {
     guide.steps.forEach((step, index) => {
       const stepCard = document.createElement("div");
       stepCard.classList.add("timeline-step-node");
-
-      // Build timer html if the step has a duration
-      let timerHtml = "";
-      const timerKey = `${guide.id}-${index}`;
-      const activeTimer = appState.activeTimers.find(t => t.key === timerKey);
-
-      if (activeTimer) {
-        stepCard.classList.add("active");
-      } else if (index === 0 && appState.activeTimers.filter(t => t.key.startsWith(guide.id)).length === 0) {
-        stepCard.classList.add("active");
-      }
-
-      if (step.timer > 0) {
-        if (activeTimer) {
-          const display = formatTimerTime(activeTimer.remaining);
-          timerHtml = `
-            <button class="cooking-step-timer running" data-timer-key="${timerKey}">
-              <i class="fa-solid fa-clock"></i> Đang chạy: ${display} (Dừng)
-            </button>
-          `;
-        } else {
-          const display = formatTimerTime(step.timer);
-          timerHtml = `
-            <button class="cooking-step-timer" data-timer-key="${timerKey}" data-duration="${step.timer}" data-label="${guide.name} - ${step.title}">
-              <i class="fa-solid fa-play"></i> Hẹn giờ: ${display}
-            </button>
-            <button class="cooking-step-timer btn-demo" data-timer-key="${timerKey}" data-duration="${step.timer}" data-label="${guide.name} - ${step.title}" style="margin-left: 6px; background: rgba(255,255,255,0.05); color: var(--primary-light); font-size: 0.75rem;">
-              Chạy nhanh (Demo)
-            </button>
-          `;
-        }
-      }
+      stepCard.classList.add("active");
 
       stepCard.innerHTML = `
         <div class="timeline-step-marker">${index + 1}</div>
         <div class="timeline-step-content">
           <div class="cooking-step-title">${step.title}</div>
           <div class="cooking-step-desc">${step.desc}</div>
-          ${timerHtml}
         </div>
       `;
-
-      // Handle normal timer button click
-      const timerBtn = stepCard.querySelector(".cooking-step-timer:not(.btn-demo)");
-      if (timerBtn) {
-        timerBtn.addEventListener("click", () => {
-          const key = timerBtn.getAttribute("data-timer-key");
-          if (timerBtn.classList.contains("running")) {
-            stopCookingTimer(key);
-          } else {
-            const duration = parseInt(timerBtn.getAttribute("data-duration"));
-            const label = timerBtn.getAttribute("data-label");
-            startCookingTimer(key, label, duration);
-          }
-        });
-      }
-
-      // Handle demo fast-forward timer button click
-      const demoBtn = stepCard.querySelector(".btn-demo");
-      if (demoBtn) {
-        demoBtn.addEventListener("click", () => {
-          const key = demoBtn.getAttribute("data-timer-key");
-          const duration = parseInt(demoBtn.getAttribute("data-duration"));
-          const label = demoBtn.getAttribute("data-label");
-          // Run 60x speed for testing
-          startCookingTimer(key, label, duration, true);
-        });
-      }
 
       stepsContainer.appendChild(stepCard);
     });
@@ -4849,8 +4806,18 @@ function generateQuizQuestions(num) {
 
     const fields = [];
 
-    // If topping added
+    // Check if added topping is already an ingredient in the recipe
+    let isToppingAlreadyInRecipe = false;
     if (topping) {
+      isToppingAlreadyInRecipe = specs.ingredients.some(ing => {
+        const cleanIng = cleanToppingName(ing.name).toLowerCase();
+        const cleanTop = cleanToppingName(topping.name).toLowerCase();
+        return cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng);
+      });
+    }
+
+    // If topping added and NOT already present in recipe, add standard topping fields at the top
+    if (topping && !isToppingAlreadyInRecipe) {
       const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
       const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
       const gramsMatch = portion.grams.match(/^(\d+)/);
@@ -4874,42 +4841,101 @@ function generateQuizQuestions(num) {
     // Add ingredients from specs
     specs.ingredients.forEach(ing => {
       // Check if this ingredient is the added topping (using clean names comparison)
-      if (topping) {
+      if (topping && !isToppingAlreadyInRecipe) {
         const cleanIng = cleanToppingName(ing.name).toLowerCase();
         const cleanTop = cleanToppingName(topping.name).toLowerCase();
         if (cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng)) return;
       }
 
       const parsed = parseIngredientQuantity(ing.quantity);
-      if (parsed.type === "topping") {
-        fields.push({
-          label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
-          correct: parsed.scoops,
-          unit: parsed.unit,
-          inputType: "number"
-        });
-        if (parsed.grams) {
+      const cleanIng = cleanToppingName(ing.name).toLowerCase();
+      const cleanTop = topping ? cleanToppingName(topping.name).toLowerCase() : "";
+      const isMatchingTopping = topping && (cleanIng.includes(cleanTop) || cleanTop.includes(cleanIng));
+
+      if (isMatchingTopping) {
+        if (parsed.type === "topping") {
+          const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
+          const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
+          const gramsMatch = portion.grams.match(/^(\d+)/);
+
+          const portionScoops = scoopsMatch ? parseFloat(scoopsMatch[1]) : parseFloat(portion.scoops);
+          const portionGrams = gramsMatch ? parseInt(gramsMatch[1]) : parseInt(portion.grams);
+
+          const gramsPerScoop = portionScoops ? (portionGrams / portionScoops) : 0;
+          const existingGrams = parsed.grams || 0;
+          const existingScoops = (gramsPerScoop && existingGrams) ? (existingGrams / gramsPerScoop) : parsed.scoops;
+
+          const totalScoops = existingScoops + portionScoops;
+          const totalGrams = existingGrams + portionGrams;
+
+          fields.push({
+            label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
+            correct: totalScoops,
+            unit: parsed.unit || portion.scoops.replace(/^[\d\.\s]+/, ""),
+            inputType: "number"
+          });
           fields.push({
             label: `${cleanToppingName(ing.name)} (số gram)`,
-            correct: parsed.grams,
+            correct: totalGrams,
             unit: "g",
             inputType: "number"
           });
+        } else {
+          fields.push({
+            label: cleanToppingName(ing.name),
+            correct: parsed.value,
+            unit: "",
+            inputType: "text"
+          });
         }
-      } else if (parsed.type === "number") {
-        fields.push({
-          label: cleanToppingName(ing.name),
-          correct: parsed.value,
-          unit: parsed.unit,
-          inputType: "number"
-        });
       } else {
-        fields.push({
-          label: cleanToppingName(ing.name),
-          correct: parsed.value,
-          unit: "",
-          inputType: "text"
-        });
+        if (parsed.type === "topping") {
+          fields.push({
+            label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
+            correct: parsed.scoops,
+            unit: parsed.unit,
+            inputType: "number"
+          });
+          if (parsed.grams) {
+            fields.push({
+              label: `${cleanToppingName(ing.name)} (số gram)`,
+              correct: parsed.grams,
+              unit: "g",
+              inputType: "number"
+            });
+          }
+        } else if (parsed.type === "number") {
+          fields.push({
+            label: cleanToppingName(ing.name),
+            correct: parsed.value,
+            unit: parsed.unit,
+            inputType: "number"
+          });
+        } else {
+          const nameLower = cleanToppingName(ing.name).toLowerCase().trim();
+          if (recipe.id === "rec-mau-hong-lang-man" && nameLower === "nước lọc") {
+            let mappedCorrect = "";
+            if (parsed.value === "Nước lọc đầy ly") mappedCorrect = "nước đầy ly";
+            else if (parsed.value === "Nước lọc vạch 600") mappedCorrect = "nước tới vạch 600";
+            else if (parsed.value === "250ml nước lọc") mappedCorrect = "250ml nước";
+            else mappedCorrect = parsed.value;
+
+            fields.push({
+              label: cleanToppingName(ing.name),
+              correct: mappedCorrect,
+              options: ["250ml nước", "nước tới vạch 600", "nước đầy ly"],
+              unit: "",
+              inputType: "select"
+            });
+          } else {
+            fields.push({
+              label: cleanToppingName(ing.name),
+              correct: parsed.value,
+              unit: "",
+              inputType: "text"
+            });
+          }
+        }
       }
     });
 
@@ -4969,6 +4995,12 @@ function generateQuizQuestions(num) {
       openedOptions.push(openedAns);
     }
 
+    const unopenedLifeParsed = parseLifeString(toppingGuideline.unopenedLife);
+    const openedLifeStr = typeof toppingGuideline.openedLife === "number"
+      ? (toppingGuideline.openedLife >= 24 ? `${toppingGuideline.openedLife / 24} ngày` : `${toppingGuideline.openedLife} giờ`)
+      : toppingGuideline.openedLife;
+    const openedLifeParsed = parseLifeString(openedLifeStr);
+
     const fields = [
       {
         label: "Định lượng (số muỗng/viên/miếng)",
@@ -4984,9 +5016,10 @@ function generateQuizQuestions(num) {
       },
       {
         label: "Hạn sử dụng chưa khui",
-        correct: toppingGuideline.unopenedLife,
-        unit: "",
-        inputType: "text"
+        correct: unopenedLifeParsed.correct,
+        unit: unopenedLifeParsed.unit,
+        inputType: unopenedLifeParsed.inputType,
+        hasUnitSelect: unopenedLifeParsed.inputType === "number"
       },
       {
         label: "Bảo quản chưa khui",
@@ -4997,11 +5030,10 @@ function generateQuizQuestions(num) {
       },
       {
         label: "Hạn sử dụng đã khui (sau khi khui)",
-        correct: typeof toppingGuideline.openedLife === "number"
-          ? (toppingGuideline.openedLife >= 24 ? `${toppingGuideline.openedLife / 24} ngày` : `${toppingGuideline.openedLife} giờ`)
-          : toppingGuideline.openedLife,
-        unit: "",
-        inputType: "text"
+        correct: openedLifeParsed.correct,
+        unit: openedLifeParsed.unit,
+        inputType: openedLifeParsed.inputType,
+        hasUnitSelect: openedLifeParsed.inputType === "number"
       },
       {
         label: "Bảo quản đã khui (sau khi khui)",
@@ -5025,6 +5057,24 @@ function generateQuizQuestions(num) {
   questions.sort(() => 0.5 - Math.random());
 
   return questions;
+}
+
+function parseLifeString(lifeStr) {
+  if (!lifeStr) return { correct: "", unit: "", inputType: "text" };
+  const str = String(lifeStr).trim();
+  const match = str.match(/^([\d\.]+)\s*(ngày|tháng|năm|giờ)$/i);
+  if (match) {
+    return {
+      correct: parseFloat(match[1]),
+      unit: match[2],
+      inputType: "number"
+    };
+  }
+  return {
+    correct: str,
+    unit: "",
+    inputType: "text"
+  };
 }
 
 function parseIngredientQuantity(quantity) {
@@ -5148,11 +5198,6 @@ function loadQuizQuestion() {
     input.style.width = field.inputType === "select" ? "170px" : "140px";
     input.style.fontSize = "0.9rem";
 
-    const unitSpan = document.createElement("span");
-    unitSpan.innerText = field.unit;
-    unitSpan.style.fontSize = "0.85rem";
-    unitSpan.style.color = "var(--primary-light)";
-
     const feedbackSpan = document.createElement("span");
     feedbackSpan.id = `quiz-feedback-${fIdx}`;
     feedbackSpan.style.display = "none";
@@ -5161,7 +5206,55 @@ function loadQuizQuestion() {
 
     row.appendChild(labelSpan);
     row.appendChild(input);
-    if (field.unit) row.appendChild(unitSpan);
+
+    if (field.unit) {
+      if (field.hasUnitSelect) {
+        const unitSelect = document.createElement("select");
+        unitSelect.setAttribute("data-field-idx", fIdx);
+        unitSelect.classList.add("quiz-unit-select");
+        unitSelect.style.padding = "6px 12px";
+        unitSelect.style.borderRadius = "8px";
+        unitSelect.style.border = "1px solid var(--glass-border)";
+        unitSelect.style.background = "rgba(0, 0, 0, 0.3)";
+        unitSelect.style.color = "var(--white)";
+        unitSelect.style.fontFamily = "var(--font-main)";
+        unitSelect.style.outline = "none";
+        unitSelect.style.width = "95px";
+        unitSelect.style.fontSize = "0.9rem";
+        unitSelect.style.cursor = "pointer";
+
+        // Default empty option
+        const placeholderOpt = document.createElement("option");
+        placeholderOpt.value = "";
+        placeholderOpt.innerText = "- Đơn vị -";
+        placeholderOpt.disabled = true;
+        placeholderOpt.selected = true;
+        placeholderOpt.style.background = "#112233";
+        placeholderOpt.style.color = "var(--white)";
+        unitSelect.appendChild(placeholderOpt);
+
+        const units = ["ngày", "tháng", "năm"];
+        if (field.unit && !units.includes(field.unit)) {
+          units.push(field.unit);
+        }
+
+        units.forEach(u => {
+          const opt = document.createElement("option");
+          opt.value = u;
+          opt.innerText = u;
+          opt.style.background = "#112233";
+          opt.style.color = "#ffffff";
+          unitSelect.appendChild(opt);
+        });
+        row.appendChild(unitSelect);
+      } else {
+        const unitSpan = document.createElement("span");
+        unitSpan.innerText = field.unit;
+        unitSpan.style.fontSize = "0.85rem";
+        unitSpan.style.color = "var(--primary-light)";
+        row.appendChild(unitSpan);
+      }
+    }
     row.appendChild(feedbackSpan);
 
     formDiv.appendChild(row);
@@ -5200,15 +5293,29 @@ function evaluateQuizInputs() {
       const userFloat = parseFloat(userVal);
       const correctFloat = parseFloat(field.correct);
       isFieldCorrect = !isNaN(userFloat) && Math.abs(userFloat - correctFloat) < 0.01;
+
+      if (field.hasUnitSelect) {
+        const unitEl = document.querySelector(`.quiz-unit-select[data-field-idx="${fIdx}"]`);
+        const userUnit = unitEl ? unitEl.value : "";
+        isFieldCorrect = isFieldCorrect && (cleanText(userUnit) === cleanText(field.unit));
+      }
     } else {
       isFieldCorrect = cleanText(userVal) === cleanText(field.correct);
     }
 
     inputEl.disabled = true;
+    const unitEl = document.querySelector(`.quiz-unit-select[data-field-idx="${fIdx}"]`);
+    if (unitEl) {
+      unitEl.disabled = true;
+    }
 
     if (isFieldCorrect) {
       inputEl.style.borderColor = "var(--safe-green)";
       inputEl.style.color = "var(--safe-green)";
+      if (unitEl) {
+        unitEl.style.borderColor = "var(--safe-green)";
+        unitEl.style.color = "var(--safe-green)";
+      }
       feedbackEl.style.display = "inline";
       feedbackEl.style.color = "var(--safe-green)";
       feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check" style="margin-left: 6px;"></i> Đúng`;
@@ -5216,9 +5323,14 @@ function evaluateQuizInputs() {
       allCorrect = false;
       inputEl.style.borderColor = "var(--danger-red)";
       inputEl.style.color = "var(--danger-red)";
+      if (unitEl) {
+        unitEl.style.borderColor = "var(--danger-red)";
+        unitEl.style.color = "var(--danger-red)";
+      }
       feedbackEl.style.display = "inline";
       feedbackEl.style.color = "var(--danger-red)";
-      feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark" style="margin-left: 6px;"></i> Sai (Đúng: ${field.correct})`;
+      const correctDisplay = field.hasUnitSelect ? `${field.correct} ${field.unit}` : field.correct;
+      feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark" style="margin-left: 6px;"></i> Sai (Đúng: ${correctDisplay})`;
     }
   });
 
