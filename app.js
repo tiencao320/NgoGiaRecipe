@@ -608,7 +608,7 @@ const DATA = {
           sugar: "100%",
           milk: "7 loại Topping",
           ingredients: [
-            { name: "Trân châu đường đen", quantity: "Nửa vá (60g)" },
+            { name: "Trân châu đường đen", quantity: "1 vá (60g)" },
             { name: "Trân châu củ năng", quantity: "Nửa vá (25g)" },
             { name: "Bánh vuông mini đường đen", quantity: "Nửa vá (25g)" },
             { name: "Trân châu 3Q", quantity: "Nửa vá (20g)" },
@@ -2625,7 +2625,7 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     ingredients = [
       { name: "Khoai môn nghiền", quantity: "120g (1.5 viên)" },
       { name: "Sữa tươi", quantity: "300ml" },
-      { name: "Nước đường", quantity: sugarVol > 0 ? `${sugarVol}cc` : "--" }
+      { name: "Nước đường", quantity: sugarVol > 0 ? `${sugarVol}cc` : "0cc" }
     ];
 
     steps = [
@@ -2887,7 +2887,7 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     else iceSpec = "Không đá";
 
     ingredients = [
-      { name: "Trân châu đường đen", quantity: "Nửa vá (60g)" },
+      { name: "Trân châu đường đen", quantity: "1 vá (60g)" },
       { name: "Trân châu củ năng", quantity: "Nửa vá (25g)" },
       { name: "Bánh vuông mini đường đen", quantity: "Nửa vá (25g)" },
       { name: "Trân châu 3Q", quantity: "Nửa vá (20g)" },
@@ -3163,7 +3163,7 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     ingredients = [
       { name: "Nước cốt ổi hồng", quantity: "70cc" },
       { name: "Nước cốt chanh", quantity: "10cc" },
-      { name: "Nước đường", quantity: sugarVol > 0 ? `${sugarVol}ml` : "--" },
+      { name: "Nước đường", quantity: sugarVol > 0 ? `${sugarVol}ml` : "0ml" },
       { name: "Chanh tươi", quantity: "1 lát" },
       { name: "Nước lọc", quantity: waterSpec }
     ];
@@ -3312,7 +3312,7 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     // Ingredients
     ingredients.push({ name: "Trân châu đường đen", quantity: "2 vá (120g)" });
     ingredients.push({ name: "Sữa tươi", quantity: `${suaVol}ml` });
-    ingredients.push({ name: "Nước đường", quantity: duongVol > 0 ? `${duongVol}cc` : "--" });
+    ingredients.push({ name: "Nước đường", quantity: duongVol > 0 ? `${duongVol}cc` : "0cc" });
 
     // Steps
     steps.push("Cho 2 vá trân châu đường đen (120g) vào ly PP và tráng đều quanh thành ly.");
@@ -3433,9 +3433,7 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
       ingredients.push({ name: "Trân châu đường đen", quantity: "2 vá (120g)" });
     }
     ingredients.push({ name: "Sữa tươi", quantity: `${suaVol}ml` });
-    if (duongVol > 0) {
-      ingredients.push({ name: "Nước đường", quantity: `${duongVol}cc` });
-    }
+    ingredients.push({ name: "Nước đường", quantity: duongVol > 0 ? `${duongVol}cc` : "0cc" });
 
     let sweet = 0;
     let plain = 0;
@@ -4709,7 +4707,7 @@ function getRandomRecipe() {
   const priorityRecipes = DATA.recipes.filter(isPriorityRecipe);
   const normalRecipes = DATA.recipes.filter(r => !isPriorityRecipe(r));
 
-  if (priorityRecipes.length > 0 && Math.random() < 0.75) {
+  if (priorityRecipes.length > 0 && Math.random() < 0.35) {
     return priorityRecipes[Math.floor(Math.random() * priorityRecipes.length)];
   } else if (normalRecipes.length > 0) {
     return normalRecipes[Math.floor(Math.random() * normalRecipes.length)];
@@ -4791,7 +4789,8 @@ function getIceDropdownAnswer(iceSpec) {
   if (lower.includes("300")) return "300ml";
   if (lower.includes("400")) return "400ml";
   if (lower.includes("450")) return "450ml";
-  if (lower.includes("đầy ly") || lower.includes("gần đầy")) return "đầy ly";
+  if (lower.includes("gần đầy")) return "gần đầy ly";
+  if (lower.includes("đầy ly")) return "đầy ly";
 
   const numMatch = iceSpec.match(/(\d+)/);
   if (numMatch) return `${numMatch[1]}ml`;
@@ -4872,7 +4871,7 @@ function generateQuizQuestions(num) {
         );
         if (validToppings.length > 0) {
           topping = validToppings[Math.floor(Math.random() * validToppings.length)];
-          isDoubleTopping = Math.random() < 0.5;
+          isDoubleTopping = areToppingsMatching(topping.name, "Kem Vani") ? false : (Math.random() < 0.5);
         }
       }
     }
@@ -4895,23 +4894,33 @@ function generateQuizQuestions(num) {
 
     // If topping added and NOT already present in recipe, add standard topping fields at the top
     if (topping && !isToppingAlreadyInRecipe) {
-      const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
-      const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
-      const gramsMatch = portion.grams.match(/^(\d+)/);
-
-      fields.push({
-        label: `${cleanToppingName(topping.name)} (số muỗng/viên/miếng)`,
-        correct: scoopsMatch ? parseFloat(scoopsMatch[1]) : portion.scoops,
-        unit: portion.scoops.replace(/^[\d\.\s]+/, ""),
-        inputType: "number"
-      });
-      if (gramsMatch) {
+      const isKemVani = areToppingsMatching(topping.name, "Kem Vani");
+      if (isKemVani) {
         fields.push({
-          label: `${cleanToppingName(topping.name)} (số gram)`,
-          correct: parseInt(gramsMatch[1]),
+          label: `${cleanToppingName(topping.name)}`,
+          correct: 60,
           unit: "g",
           inputType: "number"
         });
+      } else {
+        const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
+        const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
+        const gramsMatch = portion.grams.match(/^(\d+)/);
+
+        fields.push({
+          label: `${cleanToppingName(topping.name)} (số muỗng/viên/miếng)`,
+          correct: scoopsMatch ? parseFloat(scoopsMatch[1]) : portion.scoops,
+          unit: portion.scoops.replace(/^[\d\.\s]+/, ""),
+          inputType: "number"
+        });
+        if (gramsMatch) {
+          fields.push({
+            label: `${cleanToppingName(topping.name)} (số gram)`,
+            correct: parseInt(gramsMatch[1]),
+            unit: "g",
+            inputType: "number"
+          });
+        }
       }
     }
 
@@ -4927,32 +4936,41 @@ function generateQuizQuestions(num) {
 
       if (isMatchingTopping) {
         if (parsed.type === "topping") {
-          const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
-          const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
-          const gramsMatch = portion.grams.match(/^(\d+)/);
+          const isKemVani = areToppingsMatching(ing.name, "Kem Vani");
+          if (isKemVani) {
+            fields.push({
+              label: `${cleanToppingName(ing.name)}`,
+              correct: 60,
+              unit: "g",
+              inputType: "number"
+            });
+          } else {
+            const portion = isDoubleTopping ? getDoubleToppingPortion(topping) : topping;
+            const scoopsMatch = portion.scoops.match(/^([\d\.]+)/);
+            const gramsMatch = portion.grams.match(/^(\d+)/);
 
-          const portionScoops = scoopsMatch ? parseFloat(scoopsMatch[1]) : parseFloat(portion.scoops);
-          const portionGrams = gramsMatch ? parseInt(gramsMatch[1]) : parseInt(portion.grams);
+            const portionScoops = scoopsMatch ? parseFloat(scoopsMatch[1]) : parseFloat(portion.scoops);
+            const portionGrams = gramsMatch ? parseInt(gramsMatch[1]) : parseInt(portion.grams);
 
-          const gramsPerScoop = portionScoops ? (portionGrams / portionScoops) : 0;
-          const existingGrams = parsed.grams || 0;
-          const existingScoops = (gramsPerScoop && existingGrams) ? (existingGrams / gramsPerScoop) : parsed.scoops;
+            const existingScoops = parsed.scoops || 0;
+            const existingGrams = parsed.grams || 0;
 
-          const totalScoops = existingScoops + portionScoops;
-          const totalGrams = existingGrams + portionGrams;
+            const totalScoops = existingScoops + portionScoops;
+            const totalGrams = existingGrams + portionGrams;
 
-          fields.push({
-            label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
-            correct: totalScoops,
-            unit: parsed.unit || portion.scoops.replace(/^[\d\.\s]+/, ""),
-            inputType: "number"
-          });
-          fields.push({
-            label: `${cleanToppingName(ing.name)} (số gram)`,
-            correct: totalGrams,
-            unit: "g",
-            inputType: "number"
-          });
+            fields.push({
+              label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
+              correct: totalScoops,
+              unit: parsed.unit || portion.scoops.replace(/^[\d\.\s]+/, ""),
+              inputType: "number"
+            });
+            fields.push({
+              label: `${cleanToppingName(ing.name)} (số gram)`,
+              correct: totalGrams,
+              unit: "g",
+              inputType: "number"
+            });
+          }
         } else {
           fields.push({
             label: cleanToppingName(ing.name),
@@ -4963,24 +4981,38 @@ function generateQuizQuestions(num) {
         }
       } else {
         if (parsed.type === "topping") {
-          fields.push({
-            label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
-            correct: parsed.scoops,
-            unit: parsed.unit,
-            inputType: "number"
-          });
-          if (parsed.grams) {
+          const isKemVani = areToppingsMatching(ing.name, "Kem Vani");
+          if (isKemVani) {
             fields.push({
-              label: `${cleanToppingName(ing.name)} (số gram)`,
-              correct: parsed.grams,
+              label: `${cleanToppingName(ing.name)}`,
+              correct: 60,
               unit: "g",
               inputType: "number"
             });
+          } else {
+            fields.push({
+              label: `${cleanToppingName(ing.name)} (số muỗng/viên/miếng)`,
+              correct: parsed.scoops,
+              unit: parsed.unit,
+              inputType: "number"
+            });
+            if (parsed.grams) {
+              fields.push({
+                label: `${cleanToppingName(ing.name)} (số gram)`,
+                correct: parsed.grams,
+                unit: "g",
+                inputType: "number"
+              });
+            }
           }
         } else if (parsed.type === "number") {
+          const isKemBeo = cleanToppingName(ing.name).toLowerCase().includes("kem béo");
+          const isTranChauDenTopping = topping && areToppingsMatching(topping.name, "Trân châu đường đen-5h");
+          const shouldReduceKemBeo = isKemBeo && isTranChauDenTopping && (recipe.isMilkTea || recipe.isTaroMashed || recipe.isChocolateMilkTea) && !recipe.isBlackSugarPearl;
+
           fields.push({
             label: cleanToppingName(ing.name),
-            correct: parsed.value,
+            correct: shouldReduceKemBeo ? (parsed.value - 10) : parsed.value,
             unit: parsed.unit,
             inputType: "number"
           });
@@ -5014,7 +5046,7 @@ function generateQuizQuestions(num) {
 
     // Add ice spec
     const iceAns = getIceDropdownAnswer(specs.ice);
-    const defaultOptions = ["đầy ly", "600ml", "300ml", "800ml", "400ml", "không bỏ đá"];
+    const defaultOptions = ["đầy ly", "gần đầy ly", "600ml", "300ml", "800ml", "400ml", "không bỏ đá"];
     if (!defaultOptions.includes(iceAns)) {
       defaultOptions.push(iceAns);
     }
@@ -5074,19 +5106,33 @@ function generateQuizQuestions(num) {
       : toppingGuideline.openedLife;
     const openedLifeParsed = parseLifeString(openedLifeStr);
 
-    const fields = [
-      {
-        label: "Định lượng (số muỗng/viên/miếng)",
-        correct: scoopsMatch ? parseFloat(scoopsMatch[1]) : toppingPortion.scoops,
-        unit: scoopsMatch ? scoopsMatch[2] : "",
+    const isKemVani = areToppingsMatching(toppingPortion.name, "Kem Vani");
+    const fields = [];
+    if (isKemVani) {
+      fields.push({
+        label: "Định lượng",
+        correct: 60,
+        unit: "g",
         inputType: "number"
-      },
-      {
-        label: "Định lượng (số gram)",
-        correct: gramsMatch ? parseInt(gramsMatch[1]) : toppingPortion.grams,
-        unit: "g/phần",
-        inputType: "number"
-      },
+      });
+    } else {
+      fields.push(
+        {
+          label: "Định lượng (số muỗng/viên/miếng)",
+          correct: scoopsMatch ? parseFloat(scoopsMatch[1]) : toppingPortion.scoops,
+          unit: scoopsMatch ? scoopsMatch[2] : "",
+          inputType: "number"
+        },
+        {
+          label: "Định lượng (số gram)",
+          correct: gramsMatch ? parseInt(gramsMatch[1]) : toppingPortion.grams,
+          unit: "g/phần",
+          inputType: "number"
+        }
+      );
+    }
+
+    fields.push(
       {
         label: "Hạn sử dụng chưa khui",
         correct: unopenedLifeParsed.correct,
@@ -5115,7 +5161,7 @@ function generateQuizQuestions(num) {
         unit: "",
         inputType: "select"
       }
-    ];
+    );
 
     questions.push({
       type: "topping",
