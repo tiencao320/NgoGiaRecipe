@@ -4717,6 +4717,7 @@ function getRandomRecipe() {
   return DATA.recipes[Math.floor(Math.random() * DATA.recipes.length)];
 }
 
+
 function cleanToppingName(name) {
   if (!name) return "";
   return name.replace(/-\d+h$/gi, "");
@@ -4726,10 +4727,10 @@ function areToppingsMatching(name1, name2) {
   if (!name1 || !name2) return false;
   const n1 = cleanToppingName(name1).toLowerCase().trim();
   const n2 = cleanToppingName(name2).toLowerCase().trim();
-  
+
   if (n1 === n2) return true;
   if (n1.includes(n2) || n2.includes(n1)) return true;
-  
+
   // 1. "đào miếng" vs "miếng đào"
   if (
     (n1.includes("đào") && n1.includes("miếng") && n2.includes("đào") && n2.includes("miếng")) ||
@@ -4738,17 +4739,17 @@ function areToppingsMatching(name1, name2) {
   ) {
     return true;
   }
-  
+
   // 2. "thạch aiyu" vs "aiyu"
   if (n1.includes("aiyu") && n2.includes("aiyu")) {
     return true;
   }
-  
+
   // 3. "trân châu 3q" vs "3q trắng" vs "3q"
   if (n1.includes("3q") && n2.includes("3q")) {
     return true;
   }
-  
+
   // 4. "trân châu củ năng" vs "tc củ năng" vs "thủy tinh củ năng" vs "hạt thủy tinh củ năng"
   if (n1.includes("củ năng") && n2.includes("củ năng")) {
     return true;
@@ -4758,7 +4759,7 @@ function areToppingsMatching(name1, name2) {
   if (n1.includes("bánh vuông") && n2.includes("bánh vuông")) {
     return true;
   }
-  
+
   // 6. "khoai môn nghiền" vs "k.môn nghiền"
   if (
     (n1.includes("khoai môn nghiền") || n1.includes("k.môn nghiền")) &&
@@ -4774,7 +4775,7 @@ function areToppingsMatching(name1, name2) {
   ) {
     return true;
   }
-  
+
   return false;
 }
 
