@@ -1565,7 +1565,7 @@ const DATA = {
     { name: "Sữa tươi", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: 24, openedStore: "Tủ mát (Sử dụng tốt trong 24 giờ)" },
     { name: "Kem béo", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 120, openedStore: "Tủ mát (Sử dụng tốt từ 5 đến 7 ngày)" },
     { name: "Hạt é", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 720, openedStore: "Nhiệt độ thường" },
-    { name: "Kbeo vị sữa", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 120, openedStore: "Tủ mát" },
+    { name: "Kbeo vị sữa", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: "Dùng ngay", openedStore: "-" },
     { name: "Siro đường", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 360, openedStore: "Nhiệt độ thường" },
     { name: "Nước đường", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 720, openedStore: "Nhiệt độ thường" },
     { name: "Trà các loại", unopenedLife: "6 ngày", unopenedStore: "Tủ mát", openedLife: 144, openedStore: "Tủ mát" },
