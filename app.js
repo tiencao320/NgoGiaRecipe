@@ -1591,7 +1591,7 @@ const DATA = {
     { name: "Kem Vani", scoops: "1 viên", grams: "60g", notes: "" },
     { name: "Hạt sen", scoops: "1 vá", grams: "50g", notes: "" },
     { name: "Hạt thủy tinh củ năng", scoops: "1 vá", grams: "40g", notes: "" },
-    { name: "Pudding sương sáo", scoops: "1 cái", grams: "100g", notes: "" },
+    { name: "Pudding sương sáo", scoops: "1 cái", grams: "200g", notes: "" },
     { name: "Pudding phô mai trứng muối", scoops: "2 vá", grams: "120g", notes: "" },
     { name: "Cốt trái cây", scoops: "-", grams: "-", notes: "" },
     { name: "Mứt nho", scoops: "-", grams: "-", notes: "" },
