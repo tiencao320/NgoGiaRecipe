@@ -1563,7 +1563,7 @@ const DATA = {
     { name: "Muối hồng", unopenedLife: "5 năm", unopenedStore: "Nhiệt độ thường", openedLife: 4320, openedStore: "Nhiệt độ thường" },
     { name: "Sốt phô mai", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 720, openedStore: "Tủ mát" },
     { name: "Sữa tươi", unopenedLife: "15 ngày", unopenedStore: "Tủ mát", openedLife: 24, openedStore: "Tủ mát (Sử dụng tốt trong 24 giờ)" },
-    { name: "Kem béo", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 120, openedStore: "Tủ mát (Sử dụng tốt từ 5 đến 7 ngày)" },
+    { name: "Kem béo", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: 24, openedStore: "Tủ mát (Sử dụng tốt trong 24 giờ)" },
     { name: "Hạt é", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 720, openedStore: "Nhiệt độ thường" },
     { name: "Kbeo vị sữa", unopenedLife: "30 ngày hoặc 1 năm (Tùy loại)", unopenedStore: "Tủ mát / Tủ đông", openedLife: "Dùng ngay", openedStore: "-" },
     { name: "Siro đường", unopenedLife: "1 năm", unopenedStore: "Nhiệt độ thường", openedLife: 360, openedStore: "Nhiệt độ thường" },
@@ -5146,22 +5146,46 @@ function generateQuizQuestions(num) {
         options: unopenedOptions,
         unit: "",
         inputType: "select"
-      },
-      {
+      }
+    );
+
+    const isTranChauKhoaiMon = areToppingsMatching(toppingGuideline.name, "Trân châu khoai môn-5h");
+    if (isTranChauKhoaiMon) {
+      fields.push(
+        {
+          label: "Hạn sử dụng đã khui (sau khi khui)",
+          correct: 3,
+          unit: "ngày",
+          inputType: "number",
+          hasUnitSelect: true,
+          helpText: "Khối lượng gói: 500g"
+        },
+        {
+          label: "Hạn sử dụng đã khui (sau khi khui)",
+          correct: 7,
+          unit: "ngày",
+          inputType: "number",
+          hasUnitSelect: true,
+          helpText: "Khối lượng gói: 1kg"
+        }
+      );
+    } else {
+      fields.push({
         label: "Hạn sử dụng đã khui (sau khi khui)",
         correct: openedLifeParsed.correct,
         unit: openedLifeParsed.unit,
         inputType: openedLifeParsed.inputType,
         hasUnitSelect: openedLifeParsed.inputType === "number"
-      },
-      {
-        label: "Bảo quản đã khui (sau khi khui)",
-        correct: openedAns,
-        options: openedOptions,
-        unit: "",
-        inputType: "select"
-      }
-    );
+      });
+    }
+
+    fields.push({
+      label: "Bảo quản đã khui (sau khi khui)",
+      correct: openedAns,
+      options: openedOptions,
+      unit: "",
+      inputType: "select"
+    });
 
     questions.push({
       type: "topping",
@@ -5324,7 +5348,20 @@ function loadQuizQuestion() {
     feedbackSpan.style.fontWeight = "600";
 
     row.appendChild(labelSpan);
-    row.appendChild(input);
+
+    const controlsContainer = document.createElement("div");
+    controlsContainer.style.display = "flex";
+    controlsContainer.style.flexDirection = "column";
+    controlsContainer.style.gap = "4px";
+    controlsContainer.style.flex = "1";
+    controlsContainer.style.minWidth = "200px";
+
+    const inputLine = document.createElement("div");
+    inputLine.style.display = "flex";
+    inputLine.style.alignItems = "center";
+    inputLine.style.gap = "8px";
+    inputLine.style.flexWrap = "wrap";
+    inputLine.appendChild(input);
 
     if (field.unit) {
       if (field.hasUnitSelect) {
@@ -5365,16 +5402,30 @@ function loadQuizQuestion() {
           opt.style.color = "#ffffff";
           unitSelect.appendChild(opt);
         });
-        row.appendChild(unitSelect);
+        inputLine.appendChild(unitSelect);
       } else {
         const unitSpan = document.createElement("span");
         unitSpan.innerText = field.unit;
         unitSpan.style.fontSize = "0.85rem";
         unitSpan.style.color = "var(--primary-light)";
-        row.appendChild(unitSpan);
+        inputLine.appendChild(unitSpan);
       }
     }
-    row.appendChild(feedbackSpan);
+    inputLine.appendChild(feedbackSpan);
+    controlsContainer.appendChild(inputLine);
+
+    if (field.helpText) {
+      const helpDiv = document.createElement("div");
+      helpDiv.innerText = field.helpText;
+      helpDiv.style.fontSize = "0.75rem";
+      helpDiv.style.color = "var(--primary-light)";
+      helpDiv.style.opacity = "0.85";
+      helpDiv.style.fontWeight = "600";
+      helpDiv.style.paddingLeft = "2px";
+      controlsContainer.appendChild(helpDiv);
+    }
+
+    row.appendChild(controlsContainer);
 
     formDiv.appendChild(row);
   });
