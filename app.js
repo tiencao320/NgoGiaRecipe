@@ -1592,7 +1592,7 @@ const DATA = {
     { name: "Hạt sen", scoops: "1 vá", grams: "50g", notes: "" },
     { name: "Hạt thủy tinh củ năng", scoops: "1 vá", grams: "40g", notes: "" },
     { name: "Pudding sương sáo", scoops: "1 cái", grams: "100g", notes: "" },
-    { name: "Pudding phô mai trứng muối", scoops: "2 muỗng", grams: "100g", notes: "" },
+    { name: "Pudding phô mai trứng muối", scoops: "2 vá", grams: "120g", notes: "" },
     { name: "Cốt trái cây", scoops: "-", grams: "-", notes: "" },
     { name: "Mứt nho", scoops: "-", grams: "-", notes: "" },
     { name: "Sốt nho", scoops: "-", grams: "-", notes: "" },
@@ -1710,7 +1710,8 @@ const DATA = {
       steps: [
         { title: "Đong hạt é & nước", desc: "Đong hạt é và nước uống theo tỷ lệ.", timer: 0 },
         { title: "Thêm nước đường", desc: "Cho nước đường vào theo tỷ lệ hạt é ngâm.", timer: 900 },
-        { title: "Trộn đều hỗn hợp", desc: "Trộn đều hỗn hợp để hạt ngấm ngọt thanh và chống vón cục.", timer: 0 }
+        { title: "Trộn đều hỗn hợp", desc: "Trộn đều hỗn hợp để hạt ngấm ngọt thanh và chống vón cục.", timer: 0 },
+        { title: "Để yên thành phẩm", desc: "Sau khi ra thành phẩm, cần để yên 2 phút trước khi sử dụng.", timer: 120 }
       ]
     }
   ]
@@ -4550,6 +4551,19 @@ function startLearningMode(mode) {
     document.getElementById("learning-flashcard-panel").style.display = "block";
     initFlashcardDeck();
   } else if (mode === "quiz") {
+    appState.quizMode = "standard";
+    const setupTitle = document.querySelector("#quiz-setup h3");
+    const setupDesc = document.querySelector("#quiz-setup p");
+    if (setupTitle) setupTitle.innerText = "Bài kiểm tra pha chế nhanh";
+    if (setupDesc) setupDesc.innerText = "Bài thi gồm 10 câu trắc nghiệm được tạo ngẫu nhiên dựa trên các công thức pha chế của quán.";
+    document.getElementById("learning-quiz-panel").style.display = "block";
+    showQuizSetup();
+  } else if (mode === "supervisor") {
+    appState.quizMode = "supervisor";
+    const setupTitle = document.querySelector("#quiz-setup h3");
+    const setupDesc = document.querySelector("#quiz-setup p");
+    if (setupTitle) setupTitle.innerText = "Đề Kiểm Tra Giám Sát";
+    if (setupDesc) setupDesc.innerText = "Bài thi gồm 15 câu hỏi cố định theo chuẩn bài kiểm tra năng lực của Giám Sát.";
     document.getElementById("learning-quiz-panel").style.display = "block";
     showQuizSetup();
   } else if (mode === "progress") {
@@ -4638,16 +4652,20 @@ function showQuizSetup() {
 }
 
 function startQuizSession() {
-  if (DATA.recipes.length === 0) {
-    alert("Không có công thức nào trong hệ thống để tạo bài trắc nghiệm. Vui lòng thêm công thức vào tệp app.js.");
-    return;
-  }
-
   // Setup state
   appState.currentQuizIndex = 0;
   appState.quizStartTime = Date.now();
   appState.quizAnswers = [];
-  appState.currentQuizQuestions = generateQuizQuestions(10);
+
+  if (appState.quizMode === "supervisor") {
+    appState.currentQuizQuestions = generateSupervisorQuestions();
+  } else {
+    if (DATA.recipes.length === 0) {
+      alert("Không có công thức nào trong hệ thống để tạo bài trắc nghiệm. Vui lòng thêm công thức vào tệp app.js.");
+      return;
+    }
+    appState.currentQuizQuestions = generateQuizQuestions(10);
+  }
 
   // Switch UI panels
   document.getElementById("quiz-setup").style.display = "none";
@@ -4823,6 +4841,188 @@ function getValidSugarLevels(recipe) {
   return ["100%", "70%", "50%", "30%", "0%"];
 }
 
+function generateSupervisorQuestions() {
+  return [
+    {
+      type: "recipe",
+      recipeId: "rec-sua-tuoi-khoai-mon-nghien",
+      recipeName: "Sữa tươi Khoai Môn Nghiền",
+      questionText: "Công thức pha chế món <b>\"Sữa Tươi Khoai Môn Nghiền\"</b> 50% đường, đá bình thường là:",
+      fields: [
+        { label: "Khoai môn nghiền (viên)", correct: 1.5, unit: "viên", inputType: "number" },
+        { label: "Khối lượng khoai môn (g)", correct: 120, unit: "g", inputType: "number" },
+        { label: "Sữa tươi (ml)", correct: 300, unit: "ml", inputType: "number" },
+        { label: "Nước đường (cc)", correct: 10, unit: "cc", inputType: "number" }
+      ]
+    },
+    {
+      type: "recipe",
+      recipeId: "rec-hong-tra-kem-cheese",
+      recipeName: "Hồng trà kem Cheese",
+      questionText: "Công thức pha chế món <b>\"Hồng Trà Kem Cheese\"</b> 50% đường, ít đá là:",
+      fields: [
+        { label: "Hồng Trà có đường (trên ca định lượng)", correct: 250, unit: "ml", inputType: "number" },
+        { label: "Hồng Trà không đường (trên ca định lượng)", correct: 100, unit: "ml", inputType: "number" },
+        { label: "Cho đá đến vạch (trên ly PP)", correct: 450, unit: "ml", inputType: "number" },
+        { label: "Kem Cheese cho đến vạch (trên ly PP)", correct: 600, unit: "ml", inputType: "number" }
+      ]
+    },
+    {
+      type: "recipe",
+      recipeId: "rec-olong-nho",
+      recipeName: "Olong Nho",
+      questionText: "Công thức pha chế món <b>\"Olong nho\"</b> 70% đường, ít đá là:",
+      fields: [
+        { label: "Mứt nho (g)", correct: 50, unit: "g", inputType: "number" },
+        { label: "Cốt nho (cc)", correct: 30, unit: "cc", inputType: "number" },
+        { label: "Cho đá đến vạch (trên ly PP)", correct: 300, unit: "ml", inputType: "number" },
+        { label: "Đong cốt Olong có đường (trên ca định lượng)", correct: 200, unit: "ml", inputType: "number" },
+        { label: "Đong cốt Olong không đường (trên ca định lượng)", correct: 100, unit: "ml", inputType: "number" }
+      ]
+    },
+    {
+      type: "recipe",
+      recipeId: "rec-olong-latte",
+      recipeName: "Ô long latte",
+      questionText: "Công thức pha chế món <b>\"Olong Latte\"</b> + 1 phần Pudding Trứng Muối, size L, 50% đường, ít đá là:",
+      fields: [
+        { label: "Pudding Trứng Muối (số vá)", correct: 2, unit: "vá", inputType: "number" },
+        { label: "Khối lượng Pudding (g)", correct: 120, unit: "g", inputType: "number" },
+        { label: "Sữa tươi (ml)", correct: 150, unit: "ml", inputType: "number" },
+        { label: "Nước đường (cc)", correct: 0, unit: "cc", inputType: "number" },
+        { label: "Đong trà Olong có đường (trên ca định lượng)", correct: 250, unit: "ml", inputType: "number" },
+        { label: "Đong trà Olong không đường (trên ca định lượng)", correct: 100, unit: "ml", inputType: "number" },
+        { label: "Cho đá đến vạch (ml)", correct: 800, unit: "ml", inputType: "number" }
+      ]
+    },
+    {
+      type: "recipe",
+      recipeId: "rec-xi-muoi-ngo-gia",
+      recipeName: "Trà Xí Muội Ngũ Gia",
+      questionText: "Công thức pha chế món <b>\"Trà Xí Muội Ngô Gia\"</b> size M, ít đá là:",
+      fields: [
+        { label: "Hạt é (vá)", correct: 2, unit: "vá", inputType: "number" },
+        { label: "Khối lượng hạt é (g)", correct: 60, unit: "g", inputType: "number" },
+        { label: "Thạch Aiyu (vá)", correct: 1, unit: "vá", inputType: "number" },
+        { label: "Khối lượng thạch Aiyu (g)", correct: 40, unit: "g", inputType: "number" },
+        { label: "Cho đá đến vạch (trên ly PP)", correct: 300, unit: "ml", inputType: "number" },
+        { label: "Đong trà Xí Muội (trên ca định lượng)", correct: 300, unit: "ml", inputType: "number" }
+      ]
+    },
+    {
+      type: "recipe",
+      recipeId: "rec-sua-tuoi-tcd-den",
+      recipeName: "Sữa tươi Trân Châu Đường Đen",
+      questionText: "Lượng sữa tươi trong thức uống <b>\"Sữa Tươi Trân Châu Đường Đen\"</b> nhiều đá là:",
+      fields: [
+        { label: "Size M là (ml)", correct: 200, unit: "ml", inputType: "number" },
+        { label: "Size L là (ml)", correct: 300, unit: "ml", inputType: "number" }
+      ]
+    },
+    {
+      type: "topping",
+      recipeId: "topping",
+      recipeName: "Topping",
+      questionText: "Điền chính xác định lượng các loại topping sau:",
+      fields: [
+        { label: "Trân Châu Vị Dâu (vá)", correct: 2, unit: "vá", inputType: "number" },
+        { label: "Khối lượng Trân Châu Vị Dâu (g)", correct: 100, unit: "g", inputType: "number" },
+        { label: "Khoai Môn Nghiền (viên)", correct: 1, unit: "viên", inputType: "number" },
+        { label: "Khối lượng Khoai Môn Nghiền (g)", correct: 80, unit: "g", inputType: "number" },
+        { label: "Trân Châu 3Q Trắng (vá)", correct: 1, unit: "vá", inputType: "number" },
+        { label: "Khối lượng Trân Châu 3Q Trắng (g)", correct: 45, unit: "g", inputType: "number" }
+      ]
+    },
+    {
+      type: "recipe",
+      recipeId: "rec-hong-tra-bi-dao-mix",
+      recipeName: "Hồng trà Bí Đao (Mix)",
+      questionText: "Công thức pha chế món <b>\"Hồng Trà Bí Đao\"</b> size M, 70% đường, ít đá là:",
+      fields: [
+        { label: "Đong Trà Bí Đao (trên ca định lượng)", correct: 210, unit: "ml", inputType: "number" },
+        { label: "Đong Hồng Trà có đường (trên ca định lượng)", correct: 70, unit: "ml", inputType: "number" },
+        { label: "Đong Hồng Trà không đường (trên ca định lượng)", correct: 70, unit: "ml", inputType: "number" },
+        { label: "Cho đá đến vạch (trên ly PP)", correct: 600, unit: "ml", inputType: "number" }
+      ]
+    },
+    {
+      type: "general",
+      recipeId: "general",
+      recipeName: "General",
+      questionText: "Sau khi cho Hạt é, nước lọc và nước đường vào khuấy đều, để yên bao nhiêu phút mới có thể sử dụng?",
+      fields: [
+        { label: "Thời gian để yên (phút)", correct: 10, unit: "phút", inputType: "number" }
+      ]
+    },
+    {
+      type: "topping-shelf-life",
+      recipeId: "topping-shelf-life",
+      recipeName: "Topping Shelf Life",
+      questionText: "Hạn sử dụng của topping <b>\"Pudding Sương Sáo\"</b> đã khui là:",
+      fields: [
+        {
+          label: "Hạn sử dụng đã khui",
+          correct: "Dùng ngay",
+          options: ["2 ngày", "3 ngày", "5 ngày", "7 ngày", "Dùng ngay"],
+          unit: "",
+          inputType: "select"
+        }
+      ]
+    },
+    {
+      type: "topping-shelf-life",
+      recipeId: "topping-shelf-life",
+      recipeName: "Topping Shelf Life",
+      questionText: "Hạn sử dụng của <b>\"Kem cheese\"</b> đã khui là:",
+      fields: [
+        { label: "Hạn sử dụng (ngày)", correct: 1, unit: "ngày", inputType: "number" },
+        { label: "Thời gian tốt nhất (tiếng)", correct: 24, unit: "tiếng", inputType: "number" }
+      ]
+    },
+    {
+      type: "cooking",
+      recipeId: "cooking",
+      recipeName: "Cooking",
+      questionText: "Công thức nấu 150gr <b>\"Trân Châu Vị Dâu\"</b> là:",
+      fields: [
+        { label: "Nước lọc (ml)", correct: 2000, unit: "ml", inputType: "number" },
+        { label: "Nước đường (cc)", correct: 25, unit: "cc", inputType: "number" }
+      ]
+    },
+    {
+      type: "cooking",
+      recipeId: "cooking",
+      recipeName: "Cooking",
+      questionText: "Công thức nấu 300gr <b>\"Khoai Dẻo Tam Sắc\"</b> là:",
+      fields: [
+        { label: "Nước lọc (ml)", correct: 2000, unit: "ml", inputType: "number" },
+        { label: "Nước đường (cc)", correct: 30, unit: "cc", inputType: "number" }
+      ]
+    },
+    {
+      type: "cooking",
+      recipeId: "cooking",
+      recipeName: "Cooking",
+      questionText: "Công thức nấu 2000gr <b>\"Trân Châu Đường Đen\"</b> là:",
+      fields: [
+        { label: "Nước lọc (ml)", correct: 5000, unit: "ml", inputType: "number" },
+        { label: "Nước đường (cc)", correct: 220, unit: "cc", inputType: "number" },
+        { label: "Siro đường đen (cc)", correct: 300, unit: "cc", inputType: "number" }
+      ]
+    },
+    {
+      type: "cooking",
+      recipeId: "cooking",
+      recipeName: "Cooking",
+      questionText: "Công thức nấu 500gr <b>\"Trân Châu Khoai Môn\"</b> là:",
+      fields: [
+        { label: "Nước lọc (ml)", correct: 2500, unit: "ml", inputType: "number" },
+        { label: "Nước đường (cc)", correct: 75, unit: "cc", inputType: "number" }
+      ]
+    }
+  ];
+}
+
 function generateQuizQuestions(num) {
   const questions = [];
 
@@ -4881,6 +5081,20 @@ function generateQuizQuestions(num) {
     const questionText = `Khách order 1 ly <b>"${recipe.name}"</b> (${size}) ở mức <b>${sugarLevel} đường, ${iceLabel}</b>${toppingText} thì công thức đong là:`;
 
     const specs = calculatePureTeaSpecs(recipe, size, sugarLevel, iceLevel);
+
+    let firstTeaIdx = -1;
+    let firstIceIdx = -1;
+    if (specs && specs.steps) {
+      specs.steps.forEach((step, idx) => {
+        const stepLower = step.toLowerCase();
+        const hasTea = stepLower.includes("trà") || stepLower.includes("cốt") || stepLower.includes("lài") || stepLower.includes("ô long") || stepLower.includes("olong") || stepLower.includes("bí đao");
+        const hasIce = stepLower.includes("đá");
+        if (hasTea && firstTeaIdx === -1) firstTeaIdx = idx;
+        if (hasIce && firstIceIdx === -1) firstIceIdx = idx;
+      });
+    }
+    const isIceAfterTea = (firstTeaIdx !== -1 && firstIceIdx !== -1 && firstIceIdx > firstTeaIdx);
+    const isMixOrIceAfter = recipe.name.toLowerCase().includes("mix") || isIceAfterTea;
 
     const fields = [];
 
@@ -5032,10 +5246,14 @@ function generateQuizQuestions(num) {
           const isTea = ingNameClean.includes("trà") || ingNameClean.includes("ô long") || ingNameClean.includes("olong") || ingNameClean.includes("lài") || ingNameClean.includes("bí đao");
           let helpText = undefined;
           if (isTea) {
-            if (iceLevel === "normal" || iceLevel === "more") {
-              helpText = "trên ly PP tới:";
-            } else if (iceLevel === "less" || iceLevel === "none") {
+            if (isMixOrIceAfter) {
               helpText = "trên ca đong tới:";
+            } else {
+              if (iceLevel === "normal" || iceLevel === "more") {
+                helpText = "trên ly PP tới:";
+              } else if (iceLevel === "less" || iceLevel === "none") {
+                helpText = "trên ca đong tới:";
+              }
             }
           }
 
@@ -5067,10 +5285,14 @@ function generateQuizQuestions(num) {
             const isTea = ingNameClean.includes("trà") || ingNameClean.includes("ô long") || ingNameClean.includes("olong") || ingNameClean.includes("lài") || ingNameClean.includes("bí đao");
             let helpText = undefined;
             if (isTea) {
-              if (iceLevel === "normal" || iceLevel === "more") {
-                helpText = "trên ly PP tới:";
-              } else if (iceLevel === "less" || iceLevel === "none") {
+              if (isMixOrIceAfter) {
                 helpText = "trên ca đong tới:";
+              } else {
+                if (iceLevel === "normal" || iceLevel === "more") {
+                  helpText = "trên ly PP tới:";
+                } else if (iceLevel === "less" || iceLevel === "none") {
+                  helpText = "trên ca đong tới:";
+                }
               }
             }
 
@@ -5626,7 +5848,8 @@ function finishQuizSession() {
     score: correctCount,
     total: totalQuestions,
     timeSpent: elapsedSeconds,
-    date: Date.now()
+    date: Date.now(),
+    mode: appState.quizMode || "standard"
   };
   appState.quizScores.unshift(record);
   saveQuizScores();
@@ -5660,10 +5883,13 @@ function renderProgressPanel() {
       historyList.innerHTML = "";
       appState.quizScores.forEach(score => {
         const dateStr = new Date(score.date).toLocaleDateString("vi-VN") + " " + new Date(score.date).toLocaleTimeString("vi-VN", { hour: '2-digit', minute: '2-digit' });
+        const badge = score.mode === 'supervisor' 
+          ? `<span style="font-size: 0.7rem; font-weight: 600; background: rgba(230, 57, 70, 0.15); color: var(--danger-red); padding: 2px 6px; border-radius: 4px; margin-left: 6px;">Đề Giám Sát</span>` 
+          : '';
         historyList.innerHTML += `
           <div class="progress-list-item" style="padding: 10px 0;">
             <div style="display: flex; flex-direction: column;">
-              <strong style="font-size: 0.9rem; color: var(--primary-deep);">Điểm số: ${score.score}/${score.total}</strong>
+              <strong style="font-size: 0.9rem; color: var(--primary-deep);">Điểm số: ${score.score}/${score.total}${badge}</strong>
               <span style="font-size: 0.75rem; color: var(--primary-light);">${dateStr}</span>
             </div>
             <span style="font-size: 0.85rem; font-weight: 600;">Thời gian: ${score.timeSpent}s</span>
