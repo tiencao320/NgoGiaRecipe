@@ -4931,6 +4931,24 @@ function generateQuizQuestions(num) {
         if (areToppingsMatching(ing.name, topping.name)) return;
       }
 
+      const isKemCheese = cleanToppingName(ing.name).toLowerCase().includes("kem cheese");
+      if (isKemCheese && iceLevel === "none") {
+        fields.push({
+          label: cleanToppingName(ing.name),
+          correct: 60,
+          unit: "g",
+          inputType: "number"
+        });
+        fields.push({
+          label: "Cách phục vụ Kem Cheese",
+          correct: "bỏ riêng",
+          options: ["bỏ chung", "bỏ riêng"],
+          unit: "",
+          inputType: "select"
+        });
+        return;
+      }
+
       const parsed = parseIngredientQuantity(ing.quantity);
       const isMatchingTopping = topping && areToppingsMatching(ing.name, topping.name);
 
@@ -5010,11 +5028,23 @@ function generateQuizQuestions(num) {
           const isTranChauDenTopping = topping && areToppingsMatching(topping.name, "Trân châu đường đen-5h");
           const shouldReduceKemBeo = isKemBeo && isTranChauDenTopping && (recipe.isMilkTea || recipe.isTaroMashed || recipe.isChocolateMilkTea) && !recipe.isBlackSugarPearl;
 
+          const ingNameClean = cleanToppingName(ing.name).toLowerCase();
+          const isTea = ingNameClean.includes("trà") || ingNameClean.includes("ô long") || ingNameClean.includes("olong") || ingNameClean.includes("lài") || ingNameClean.includes("bí đao");
+          let helpText = undefined;
+          if (isTea) {
+            if (iceLevel === "normal" || iceLevel === "more") {
+              helpText = "trên ly PP tới:";
+            } else if (iceLevel === "less" || iceLevel === "none") {
+              helpText = "trên ca đong tới:";
+            }
+          }
+
           fields.push({
             label: cleanToppingName(ing.name),
             correct: shouldReduceKemBeo ? (parsed.value - 10) : parsed.value,
             unit: parsed.unit,
-            inputType: "number"
+            inputType: "number",
+            helpText: helpText
           });
         } else {
           const nameLower = cleanToppingName(ing.name).toLowerCase().trim();
@@ -5033,11 +5063,23 @@ function generateQuizQuestions(num) {
               inputType: "select"
             });
           } else {
+            const ingNameClean = cleanToppingName(ing.name).toLowerCase();
+            const isTea = ingNameClean.includes("trà") || ingNameClean.includes("ô long") || ingNameClean.includes("olong") || ingNameClean.includes("lài") || ingNameClean.includes("bí đao");
+            let helpText = undefined;
+            if (isTea) {
+              if (iceLevel === "normal" || iceLevel === "more") {
+                helpText = "trên ly PP tới:";
+              } else if (iceLevel === "less" || iceLevel === "none") {
+                helpText = "trên ca đong tới:";
+              }
+            }
+
             fields.push({
               label: cleanToppingName(ing.name),
               correct: parsed.value,
               unit: "",
-              inputType: "text"
+              inputType: "text",
+              helpText: helpText
             });
           }
         }
@@ -5150,6 +5192,8 @@ function generateQuizQuestions(num) {
     );
 
     const isTranChauKhoaiMon = areToppingsMatching(toppingGuideline.name, "Trân châu khoai môn-5h");
+    const isPuddingSuongSao = areToppingsMatching(toppingGuideline.name, "Pudding sương sáo");
+
     if (isTranChauKhoaiMon) {
       fields.push(
         {
@@ -5169,6 +5213,14 @@ function generateQuizQuestions(num) {
           helpText: "Khối lượng gói: 1kg"
         }
       );
+    } else if (isPuddingSuongSao) {
+      fields.push({
+        label: "Hạn sử dụng đã khui (sau khi khui)",
+        correct: "Dùng ngay",
+        options: ["2 ngày", "3 ngày", "5 ngày", "7 ngày", "Dùng ngay"],
+        unit: "",
+        inputType: "select"
+      });
     } else {
       fields.push({
         label: "Hạn sử dụng đã khui (sau khi khui)",
@@ -5179,13 +5231,15 @@ function generateQuizQuestions(num) {
       });
     }
 
-    fields.push({
-      label: "Bảo quản đã khui (sau khi khui)",
-      correct: openedAns,
-      options: openedOptions,
-      unit: "",
-      inputType: "select"
-    });
+    if (!isPuddingSuongSao) {
+      fields.push({
+        label: "Bảo quản đã khui (sau khi khui)",
+        correct: openedAns,
+        options: openedOptions,
+        unit: "",
+        inputType: "select"
+      });
+    }
 
     questions.push({
       type: "topping",
