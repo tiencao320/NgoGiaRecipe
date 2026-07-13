@@ -4951,7 +4951,7 @@ function generateSupervisorQuestions() {
       recipeName: "General",
       questionText: "Sau khi cho Hạt é, nước lọc và nước đường vào khuấy đều, để yên bao nhiêu phút mới có thể sử dụng?",
       fields: [
-        { label: "Thời gian để yên (phút)", correct: 10, unit: "phút", inputType: "number" }
+        { label: "Thời gian để yên (phút)", correct: 2, unit: "phút", inputType: "number" }
       ]
     },
     {
