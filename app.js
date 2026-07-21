@@ -950,6 +950,39 @@ const DATA = {
       ]
     },
     {
+      id: "rec-olong-dau",
+      name: "Olong Dâu",
+      category: "fruit-tea",
+      categoryName: "F. Trà trái cây",
+      defaultSize: "700ml",
+      isCustomPureStyle: true,
+      isFixedSugar: false,
+      minSugar: "70%",
+      isOlongDau: true,
+      sizes: {
+        "700ml": {
+          tea: "300ml Trà Olong",
+          ice: "Đá đầy ly",
+          sugar: "100%",
+          milk: "30ml",
+          ingredients: [
+            { name: "Trân châu dâu", quantity: "2 vá (100g)" },
+            { name: "Cốt dâu", quantity: "30ml" },
+            { name: "Cốt Trà ô long có đường", quantity: "300ml" },
+            { name: "Chanh tươi", quantity: "1 lát" }
+          ]
+        }
+      },
+      steps: [
+        "Bước 1: Múc 2 vá trân châu dâu (100g) vào ly PP.",
+        "Bước 2: Cho tiếp 30ml cốt dâu vào ly PP.",
+        "Bước 3: Rót 300ml cốt Trà ô long có đường vào ly PP.",
+        "Bước 4: Cho thêm 1 lát chanh tươi vào ly PP.",
+        "Bước 5: Cho đá đến đầy ly PP (bỏ đá sau).",
+        "Bước 6: Hoàn thành thức uống."
+      ]
+    },
+    {
       id: "rec-tra-sua-socola",
       name: "Trà sữa Socola",
       category: "milk-tea",
@@ -1531,6 +1564,67 @@ const DATA = {
         "Bước 3: Đong 250ml cốt Hồng trà có đường vào ca định lượng, sau đó cho vào ly PP.",
         "Bước 4: Cho đá đến đầy ly PP.",
         "Bước 5: Hoàn thành và dập nắp ly."
+      ]
+    },
+    {
+      id: "rec-cafe-sua",
+      name: "Cafe sữa",
+      category: "coffee",
+      categoryName: "G. Cafe",
+      defaultSize: "700ml",
+      isCustomPureStyle: false,
+      isFixedSugar: true,
+      sizes: {
+        "700ml": {
+          tea: "300ml Cafe",
+          ice: "Đá đầy ly",
+          sugar: "20cc đường (Cố định)",
+          milk: "40ml sữa đặc + 40ml kem béo",
+          ingredients: [
+            { name: "Cafe", quantity: "300ml" },
+            { name: "Sữa đặc", quantity: "40ml" },
+            { name: "Kem béo", quantity: "40ml" },
+            { name: "Đường", quantity: "20cc" }
+          ]
+        }
+      },
+      steps: [
+        "Bước 1: Cho 300ml cafe, 40ml sữa đặc, 40ml kem béo và 20cc đường vào ca đong.",
+        "Bước 2: Khuấy đều hỗn hợp cho tan hết.",
+        "Bước 3: Cho đá đầy ly.",
+        "Bước 4: Hoàn thành thức uống."
+      ]
+    },
+    {
+      id: "rec-cafe-kem-sua-tuoi",
+      name: "Cafe kem sữa tươi",
+      category: "coffee",
+      categoryName: "G. Cafe",
+      defaultSize: "700ml",
+      isCustomPureStyle: false,
+      isFixedSugar: true,
+      sizes: {
+        "700ml": {
+          tea: "200ml Cafe",
+          ice: "Đá tới vạch 600 (Ít đá tới vạch 300)",
+          sugar: "30cc đường (Cố định)",
+          milk: "120ml sữa + 1 viên kem (60g)",
+          ingredients: [
+            { name: "Sữa", quantity: "120ml" },
+            { name: "Đường", quantity: "30cc" },
+            { name: "Cafe", quantity: "200ml" },
+            { name: "Kem (Viên 60g)", quantity: "1 viên" }
+          ]
+        }
+      },
+      steps: [
+        "Bước 1: Cho 120ml sữa và 30cc đường vào ca.",
+        "Bước 2: Khuấy đều hỗn hợp.",
+        "Bước 3: Đổ hỗn hợp vào ly PP.",
+        "Bước 4: Cho đá tới vạch 600 (nếu khách dùng ít đá thì cho tới vạch 300).",
+        "Bước 5: Rót tiếp 200ml cafe vào ly.",
+        "Bước 6: Múc 1 viên kem (60g) đặt lên trên cùng.",
+        "Bước 7: Hoàn thành thức uống."
       ]
     }
   ],
@@ -2323,6 +2417,7 @@ function renderRecipes(searchQuery = "") {
     else if (recipe.category === "milk-tea") colorGradient = "linear-gradient(135deg, #854d0e, #ca8a04)";
     else if (recipe.category === "latte") colorGradient = "linear-gradient(135deg, #15803d, #4ade80)";
     else if (recipe.category === "fruit-tea") colorGradient = "linear-gradient(135deg, #ec4899, #fbcfe8)";
+    else if (recipe.category === "coffee") colorGradient = "linear-gradient(135deg, #7c2d12, #b45309)";
 
     card.innerHTML = `
       <div style="background: ${colorGradient}; height: 140px; border-radius: 12px; margin-bottom: 16px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.06);">
@@ -2931,6 +3026,59 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
       ice: iceSpec,
       sugar: activeSugar,
       milk: "7 loại Topping",
+      ingredients: ingredients,
+      steps: steps
+    };
+  }
+
+  if (recipe.isOlongDau) {
+    let iceSpec = "";
+    if (ice === "normal") iceSpec = "Đá đầy ly";
+    else if (ice === "more") iceSpec = "Đá đầy ly";
+    else if (ice === "less") iceSpec = "Đá đến vạch 600ml";
+    else iceSpec = "Không đá";
+
+    ingredients = [
+      { name: "Trân châu dâu", quantity: "2 vá (100g)" },
+      { name: "Cốt dâu", quantity: "30ml" }
+    ];
+
+    if (activeSugar === "100%") {
+      ingredients.push({ name: "Cốt Trà ô long có đường", quantity: "300ml" });
+    } else { // 70%
+      ingredients.push({ name: "Cốt Trà ô long có đường", quantity: "200ml" });
+      ingredients.push({ name: "Cốt Trà ô long không đường", quantity: "100ml" });
+    }
+    ingredients.push({ name: "Chanh tươi", quantity: "1 lát" });
+
+    steps = [
+      "Bước 1: Múc 2 vá trân châu dâu (100g) vào ly PP.",
+      "Bước 2: Cho tiếp 30ml cốt dâu vào ly PP."
+    ];
+
+    if (activeSugar === "100%") {
+      steps.push("Bước 3: Đong 300ml cốt Trà ô long có đường vào ca định lượng, sau đó rót vào ly PP.");
+    } else { // 70%
+      steps.push("Bước 3: Đong 200ml cốt Trà ô long có đường và 100ml cốt Trà ô long không đường vào ca định lượng, khuấy đều rồi rót vào ly PP.");
+    }
+
+    steps.push("Bước 4: Cho thêm 1 lát chanh tươi vào ly PP.");
+
+    if (ice === "normal" || ice === "more") {
+      steps.push("Bước 5: Cho đá đến đầy ly PP (bỏ đá sau).");
+    } else if (ice === "less") {
+      steps.push("Bước 5: Cho đá vào ly PP đến vạch 600ml (bỏ đá sau).");
+    } else {
+      steps.push("Bước 5: Không cho đá vào ly.");
+    }
+
+    steps.push("Bước 6: Hoàn thành thức uống.");
+
+    return {
+      tea: activeSugar === "100%" ? "300ml" : "300ml hỗn hợp",
+      ice: iceSpec,
+      sugar: activeSugar,
+      milk: "30ml",
       ingredients: ingredients,
       steps: steps
     };
@@ -3758,6 +3906,7 @@ function openRecipeModal(recipe) {
   else if (recipe.category === "milk-tea") colorGradient = "linear-gradient(135deg, #854d0e, #ca8a04)";
   else if (recipe.category === "latte") colorGradient = "linear-gradient(135deg, #15803d, #4ade80)";
   else if (recipe.category === "fruit-tea") colorGradient = "linear-gradient(135deg, #ec4899, #fbcfe8)";
+  else if (recipe.category === "coffee") colorGradient = "linear-gradient(135deg, #7c2d12, #b45309)";
 
   // Custom offline-friendly placeholder style
   modalImg.style.background = colorGradient;
@@ -3888,7 +4037,7 @@ function openRecipeModal(recipe) {
       });
 
       const iceNote = document.getElementById("modal-ice-note");
-      if (recipe.isTeaBiDaoMix || recipe.isLatteTea || recipe.isChocolateMilkTea || recipe.isTaroMashed || recipe.isFreshMilkTaroMashed || recipe.isXiMuoiOlongMix || recipe.isXiMuoiWinterMelonMix || recipe.isCheeseTea || recipe.isUyenUong) {
+      if (recipe.isTeaBiDaoMix || recipe.isLatteTea || recipe.isChocolateMilkTea || recipe.isTaroMashed || recipe.isFreshMilkTaroMashed || recipe.isXiMuoiOlongMix || recipe.isXiMuoiWinterMelonMix || recipe.isCheeseTea || recipe.isUyenUong || recipe.isOlongDau) {
         if (iceNote) {
           if (recipe.isCheeseTea) {
             iceNote.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Không thể cho nhiều đá đối với món kem Cheese!';
@@ -3960,6 +4109,8 @@ function updateModalIngredientsAndSpecs(recipe, size) {
       specLblTea.innerText = "Hỗn hợp trà";
     } else if (recipe.isEightTreasures) {
       specLblTea.innerText = "Trà sử dụng";
+    } else if (recipe.category === "coffee") {
+      specLblTea.innerText = "Cốt Cafe";
     } else {
       specLblTea.innerText = "Cốt Trà";
     }
@@ -3975,6 +4126,8 @@ function updateModalIngredientsAndSpecs(recipe, size) {
       specLblMilk.innerText = "Topping";
     } else if (recipe.isOlongGrape) {
       specLblMilk.innerText = "Sốt nho";
+    } else if (recipe.isOlongDau) {
+      specLblMilk.innerText = "Cốt dâu";
     } else if (recipe.isTaroMashed) {
       specLblMilk.innerText = "Khoai môn + Kem";
     } else if (recipe.isFreshMilkTaroMashed) {
@@ -3989,6 +4142,10 @@ function updateModalIngredientsAndSpecs(recipe, size) {
       specLblMilk.innerText = "Nước chanh";
     } else if (recipe.id === "rec-hong-tra-kem-tuoi") {
       specLblMilk.innerText = "Kem tươi";
+    } else if (recipe.id === "rec-cafe-sua") {
+      specLblMilk.innerText = "Sữa & Kem béo";
+    } else if (recipe.id === "rec-cafe-kem-sua-tuoi") {
+      specLblMilk.innerText = "Sữa & Kem viên";
     } else if (recipe.category === "pure-tea") {
       specLblMilk.innerText = "--";
     } else {
