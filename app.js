@@ -1626,6 +1626,35 @@ const DATA = {
         "Bước 6: Múc 1 viên kem (60g) đặt lên trên cùng.",
         "Bước 7: Hoàn thành thức uống."
       ]
+    },
+    {
+      id: "rec-cafe-sua-tuoi",
+      name: "Cafe sữa tươi",
+      category: "coffee",
+      categoryName: "G. Cafe",
+      defaultSize: "700ml",
+      isCustomPureStyle: false,
+      isFixedSugar: true,
+      sizes: {
+        "700ml": {
+          tea: "200ml Cafe",
+          ice: "Đá tới vạch 600",
+          sugar: "20cc đường (Cố định)",
+          milk: "150ml sữa tươi",
+          ingredients: [
+            { name: "Sữa tươi", quantity: "150ml" },
+            { name: "Đường", quantity: "20cc" },
+            { name: "Cafe", quantity: "200ml" }
+          ]
+        }
+      },
+      steps: [
+        "Bước 1: Cho 150ml sữa tươi và 20cc đường vào ca đong.",
+        "Bước 2: Khuấy đều hỗn hợp và rót vào ly PP.",
+        "Bước 3: Cho đá tới vạch 600.",
+        "Bước 4: Rót tiếp 200ml cafe vào ly.",
+        "Bước 5: Hoàn thành thức uống."
+      ]
     }
   ],
 
@@ -2384,9 +2413,9 @@ function renderRecipes(searchQuery = "") {
     if (searchQuery) {
       const nameMatch = recipe.name.toLowerCase().includes(searchQuery);
       const categoryNameMatch = recipe.categoryName.toLowerCase().includes(searchQuery);
-      const ingredientMatch = recipe.sizes["700ml"].ingredients.some(ing =>
-        ing.name.toLowerCase().includes(searchQuery)
-      );
+      const ingredientMatch = recipe.sizes?.["700ml"]?.ingredients?.some(ing =>
+        ing.name?.toLowerCase().includes(searchQuery)
+      ) || false;
       searchMatches = nameMatch || categoryNameMatch || ingredientMatch;
     }
 
@@ -3676,6 +3705,7 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
 
   // 2. Calculate Tea Volumes & Ingredients
   const teaPourTerm = recipe.id === "rec-hong-tra-kem-tuoi" ? "Gần đầy ly" : "Cho đến đầy ly";
+  let totalVol = isSize1000 ? (recipe.isMilkTea ? 450 : 500) : (recipe.isMilkTea ? 300 : 350);
 
   if (!isLessOrNoIce) {
     // Normal / More Ice
@@ -3700,12 +3730,6 @@ function calculatePureTeaSpecs(recipe, size, sugar, ice) {
     }
   } else {
     // Less / No Ice
-    let totalVol = 350;
-    if (isSize1000) {
-      totalVol = recipe.isMilkTea ? 450 : 500;
-    } else {
-      totalVol = recipe.isMilkTea ? 300 : 350;
-    }
     teaSpec = `${totalVol}ml`;
 
     if (activeSugar === "100%") {
@@ -4095,7 +4119,12 @@ function updateModalIngredientsAndSpecs(recipe, size) {
     specs = recipe.sizes[size] || recipe.sizes["700ml"];
   }
 
-  // Set visual spec boxes
+  // Set visual size & spec boxes
+  const sizeLabelEl = document.getElementById("modal-recipe-default-size");
+  if (sizeLabelEl) {
+    sizeLabelEl.innerText = size;
+  }
+
   document.getElementById("spec-val-tea").innerText = specs.tea;
   document.getElementById("spec-val-ice").innerText = specs.ice;
   document.getElementById("spec-val-sugar").innerText = specs.sugar;
@@ -4146,6 +4175,8 @@ function updateModalIngredientsAndSpecs(recipe, size) {
       specLblMilk.innerText = "Sữa & Kem béo";
     } else if (recipe.id === "rec-cafe-kem-sua-tuoi") {
       specLblMilk.innerText = "Sữa & Kem viên";
+    } else if (recipe.id === "rec-cafe-sua-tuoi") {
+      specLblMilk.innerText = "Sữa tươi";
     } else if (recipe.category === "pure-tea") {
       specLblMilk.innerText = "--";
     } else {
@@ -4764,7 +4795,7 @@ function showFlashcard() {
   // Fill ingredients & formula on back
   const detailsEl = document.getElementById("flashcard-back-content");
 
-  const specs = current.sizes[current.defaultSize] || { tea: "N/A", sugar: "N/A", ice: "N/A", milk: "N/A" };
+  const specs = (current.sizes && current.sizes[current.defaultSize]) || { tea: "N/A", sugar: "N/A", ice: "N/A", milk: "N/A" };
 
   detailsEl.innerHTML = `
     <div style="font-size: 0.85rem; margin-bottom: 12px; border-bottom: 1px dashed var(--glass-border); padding-bottom: 8px;">
